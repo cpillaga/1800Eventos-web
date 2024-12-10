@@ -1,3 +1,4 @@
+"use client";
 import Layout from "@/components/layout/Layout"
 import Banner from "@/components/sections/home1/Banner"
 import ServicesOne from "@/components/sections/home1/ServicesOne"
@@ -12,7 +13,23 @@ import Brand from "@/components/sections/home1/Brand"
 import BlogOne from "@/components/sections/home1/BlogOne"
 import CTAOne from "@/components/sections/home1/CTAOne"
 import AboutUs from "@/components/sections/home1/components/AboutUs"
+import { consultar_eventos } from "@/components/api/EventosApi"
+import { useEffect, useState } from "react"
 export default function Home() {
+
+    const [eventos, setEventos] = useState([])
+
+    useEffect(() => {
+
+        consultar_eventos()
+            .then((res) => {
+                console.log("Eventos desde la API: ", res)
+            })
+            .catch((err) => {
+                console.log("Error desde la API: ", err)
+            })
+
+    }, [])
 
     return (
         <>
@@ -22,7 +39,7 @@ export default function Home() {
                 <SlidingText />
                 {/* <ServicesOne />
                 <EventOne />   */}
-                
+
                 {/* <TeamOne /> 
                 <EventDirection />  */}
                 {/* <GalleryOne />  */}
@@ -32,7 +49,7 @@ export default function Home() {
                 <BuyTicket />
 
                 {/* <BlogOne />
-                <BuyTicket /> */} 
+                <BuyTicket /> */}
 
                 {/* <AboutUs/> */}
 

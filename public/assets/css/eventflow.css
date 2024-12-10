@@ -3956,6 +3956,7 @@ ul {
   display: block;
   padding: 98px 0px 0px;
   z-index: 1;
+  background-color: white;
 }
 
 .site-footer__shape-1 {
@@ -4222,11 +4223,13 @@ ul {
   position: relative;
   display: flex;
   align-items: center;
-  color: rgba(var(--eventflow-white-rgb), .90);
+  color: #838383
+  /* color: rgba(var(--eventflow-white-rgb), .90); */
 }
 
 .site-footer__bottom-menu li a:hover {
-  color: rgba(var(--eventflow-base-rgb), 1);
+  color: #EF7C25
+  /* color: rgba(var(--eventflow-base-rgb), 1); */
 }
 
 /*--------------------------------------------------------------

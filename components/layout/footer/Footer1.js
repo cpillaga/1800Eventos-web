@@ -4,12 +4,13 @@ export default function Footer1() {
     return (
         <>
             {/* Site Footer Start */}
-            <footer className="site-footer">
-                <div className="site-footer__shape-1 float-bob-y">
-                    <img src="/assets/images/shapes/site-footer-shape-1.png" alt="" />
-                </div>
-                <div className="site-footer__top">
-                    <div className="container">
+            <footer className="site-footer" >
+                {/* <div className="site-footer__shape-1 float-bob-y" >
+                    <img src="/assets/images/shapes/site-footer-shape-1.png" alt="" /> 
+                </div> */}
+
+                {/* <div className="site-footer__top">
+                    <div className="container" style={{ backgroundColor: 'green' }}>
                         <div className="site-footer__top-inner">
                             <div className="site-footer__logo">
                                 <Link href="/">
@@ -24,10 +25,13 @@ export default function Footer1() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="site-footer__middle">
+                </div> */}
+
+                {/* <div className="site-footer__middle" style={{ backgroundColor: 'blue'}}>
                     <div className="container">
+
                         <div className="site-footer__middle-inner">
+
                             <div className="row">
                                 <div className="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                                     <div className="footer-widget__column footer-widget__events">
@@ -65,7 +69,7 @@ export default function Footer1() {
                                 <div className="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
                                     <div className="footer-widget__column footer-widget__our-company">
                                         <div className="footer-widget__title-box">
-                                            <h3 className="footer-widget__title">Our Company</h3>
+                                            <h3 className="footer-widget__title" style={{ color: 'red'}}>Our Company</h3>
                                         </div>
                                         <ul className="footer-widget__link-list list-unstyled">
                                             <li><Link href="/schedule-list-2">Jubilee Events</Link></li>
@@ -112,14 +116,50 @@ export default function Footer1() {
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
+                </div> */}
+                <div
+                    style={{
+                       justifyContent: 'center',
+                       alignContent: 'center',
+                       justifyItems: 'center',
+                       alignItems: 'center',
+                       paddingBottom: 30
+                    }}
+                >
+
+                    <img src="/assets/images/shapes/Banner1800-orange.png" alt="" /> 
+                    
                 </div>
+
                 <div className="site-footer__bottom">
                     <div className="container">
-                        <div className="site-footer__bottom-inner">
-                            <p className="site-footer__bottom-text">© EventFlow 2024 | All Rights Reserved</p>
-                            <ul className="list-unstyled site-footer__bottom-menu">
+                        <div 
+                            className="site-footer__bottom-inner" 
+                            // style={{
+                            //     justifyContent: 'center',
+                            //     alignContent: 'center',
+                            //     justifyItems: 'center',
+                            //     alignItems: 'center'
+                            // }}
+                        >
+                            
+                            <p 
+                                className="site-footer__bottom-text"
+                                style={{
+                                    color: '#838383',
+                                    fontSize: 18
+                                }}
+                            >© 2024 1800 EVENTOS | TODOS LO DERECHOS RESERVADOS</p>
+                            <ul 
+                                className="list-unstyled site-footer__bottom-menu"   
+                                style={{
+                                    color: '#838383',
+                                    fontSize: 18
+                                }}
+                            >
                                 <li><Link href="/about">Terms & Condition</Link></li>
                                 <li><Link href="/about">Privacy Policy</Link></li>
                                 <li><Link href="/about">Contact Us</Link></li>

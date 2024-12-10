@@ -22,7 +22,7 @@ export default function Footer2() {
 
   return (
     <>
-      {/* Site Footer Start */}
+      {/* Site Footer Start : Bander Footer*/}
       <footer className="site-footer-two">
         <div className="site-footer-two__top">
           <div className="container">
