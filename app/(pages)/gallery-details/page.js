@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
+
 export default function Home() {
   return (
     <>
@@ -127,7 +128,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <h3 className="gallery-details__title-2">
-                  Celebrate Life Celebrate with Us
+                  Celebrate Life Celebrate with
                 </h3>
                 <p className="gallery-details__text-2">
                   Web designing in a powerful way of just not an only

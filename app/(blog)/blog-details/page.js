@@ -1,6 +1,27 @@
+"use client"
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
+import ReadMoreAndLess from 'react-read-more-read-less';
+import "leaflet/dist/leaflet.css";
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import MessageIcon from '@mui/icons-material/Message';
+
+// import { useRouter } from 'next/navigation';
+
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import Sidebar from "@/components/layout/Sidebar";
+import { useEffect, useState } from "react";
+import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
+
 export default function Home() {
+
+  // const router = useRouter();
+  const [data, setData] = useState([]);
+
+  const position = [51.505, -0.09];
+  const center = [0.3558, -78.1219];
+  const zoom = 15;
+
   const categories = [
     { name: "Event Prodigy", count: 2, link: "/blog-details" },
     { name: "Stellar Events Co", count: 4, link: "/blog-details" },
@@ -41,333 +62,550 @@ export default function Home() {
     "Moments",
   ];
 
+  const [isSidebar, setSidebar] = useState(false)
+  const handleSidebar = () => {
+    setSidebar(!isSidebar)
+  }
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1)
+    setSidebar(true)
+    
+  };
+
+  const decrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+
+    // if (count <= 1) {
+    //   setSidebar(false)
+    // }
+
+  };
+
+  useEffect(() => {
+    handleSidebar()
+  }, [])
+
+  useEffect(() => {
+    console.log("Val: ", count)
+  }, [count])
+
+
   return (
+
     <>
+
       <Layout headerStyle={4} footerStyle={1} breadcrumbTitle="Blog_Details">
-        {/*Blog Details Start*/}
-        <section className="blog-details">
-          <div className="container">
-            <div className="row">
-              <div className="col-xl-8 col-lg-7">
-                <div className="blog-details__left">
-                  <div className="blog-details__img-1">
-                    <img
-                      src="/assets/images/blog/blog-details-img-1.jpg"
-                      alt=""
-                    />
-                    <div className="blog-details__date">
-                      <p>22 Jan</p>
+
+        <section>
+
+          <div
+            style={{
+              width: '550px',
+              height: '350px',
+              marginTop: 0,
+              marginLeft: 210,
+              flexDirection: 'row',
+              display: 'flex',
+              gap: 15,
+              //backgroundColor: 'green'
+            }}
+          >
+
+            <div
+              style={{
+                boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+                padding: 5,
+                borderRadius: 10,
+                width: '100%',
+              }}
+            >
+              <img
+                src="/assets/images/blog/item1.png"
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+
+              <div
+                style={{
+                  //backgroundColor: 'yellow',
+                  width: '70%',
+                  height: '200px',
+                  margin: 10,
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  justifyItems: 'center',
+                  alignItems: 'center',
+                  justifySelf: 'center',
+                  alignSelf: 'center',
+
+                }}
+              >
+
+                <div
+                  style={{
+                    backgroundColor: 'white',
+                    position: 'relative',
+                    top: '-100px',
+                    boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                    //padding: 40,
+                    borderRadius: 10,
+                    paddingLeft: 25,
+                    paddingRight: 25
+                  }}
+                >
+
+                  <div
+                    style={{
+                      color: '#838383',
+                      textAlign: 'left'
+                    }}
+                  >
+
+                    <p
+                      style={{
+                        fontSize: 15,
+                        fontStyle: 'normal',
+                        fontWeight: 600,
+                        //marginBottom: 30
+                      }}
+                    > Join the Festivi Celebrate Special Moments </p>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: 10
+                      }}
+                    >
+
+                      <div className="icon" style={{ marginRight: 10 }}>
+                        <span className="icon-calendar"></span>
+                      </div>
+
+                      <div>
+                        <p
+                          style={{
+                            fontSize: 13,
+                            fontStyle: 'normal',
+                            fontWeight: 600
+                          }}
+                        >
+                          October 19, 2022
+                        </p>
+                      </div>
+
                     </div>
-                  </div>
-                  <div className="blog-details__content">
-                    <h3 className="blog-details__title-1">
-                      Celebrate Life Celebrate with Us
-                    </h3>
-                    <p className="blog-details__text-1">
-                      Real estate is a lucrative industry that involves the
-                      buying, selling, and renting properties. It encompasses
-                      residential, commercial, and industrial designs in
-                      properties. Real estate agents play a crucial role.
-                    </p>
-                    <p className="blog-details__text-2">
-                      Real estate is a lucrative industry that involves the
-                      buying, selling, and renting properties. It encompasses
-                      residential, commercial, and industrial properties.
-                    </p>
-                    <div className="blog-details__quote-box">
-                      <div className="blog-details__quote-icon">
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: 10
+                      }}
+                    >
+
+                      <div className="icon" style={{ marginRight: 10 }}>
+                        <span className="icon-pin"></span>
+                      </div>
+
+                      <div>
+                        <p
+                          style={{
+                            fontSize: 13,
+                            fontStyle: 'normal',
+                            fontWeight: 600
+                          }}
+                        >
+                          Hacienda La Quinta, Cuenca - Ecuador
+                        </p>
+                      </div>
+
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginTop: 10
+                      }}
+                    >
+
+                      <div
+                        className="icon"
+                        style={{
+                          marginRight: 10,
+                          fontSize: 11
+                        }}
+                      >
                         <span className="icon-quote"></span>
                       </div>
-                      <h3 className="blog-details__quote-box-client-name">
-                        Mark Wood
-                      </h3>
-                      <p className="blog-details__quote-box-sub-title">CEO</p>
-                      <p className="blog-details__quote-box-text">
-                        Real estate is a lucrative industry that involves the
-                        buying, selling, and renting properties. Real estate
-                        agents play a crucial role in facilitating transactions.
-                      </p>
-                    </div>
-                    <h3 className="blog-details__title-2">
-                      Your Event Our Expertise
-                    </h3>
-                    <p className="blog-details__text-3">
-                      Aliquam eros justo, posuere lobortis viverra laoreet matti
-                      ullamcorper design posuere viverra.
-                    </p>
-                    <div className="blog-details__points-box">
-                      <ul className="blog-details__points list-unstyled">
-                        <li>
-                          <div className="icon">
-                            <span className="icon-double-angle"></span>
-                          </div>
-                          <p>Creating Memories, One Event at a Time</p>
-                        </li>
-                        <li>
-                          <div className="icon">
-                            <span className="icon-double-angle"></span>
-                          </div>
-                          <p>Celebrate in Style, Celebrate with Class</p>
-                        </li>
-                      </ul>
-                      <ul className="blog-details__points list-unstyled">
-                        <li>
-                          <div className="icon">
-                            <span className="icon-double-angle"></span>
-                          </div>
-                          <p>Where Events Come to Life</p>
-                        </li>
-                        <li>
-                          <div className="icon">
-                            <span className="icon-double-angle"></span>
-                          </div>
-                          <p>Making Your Event Dreams Come True</p>
-                        </li>
-                      </ul>
-                    </div>
-                    <p className="blog-details__text-4">
-                      A personal portfolio is a collection of work samples,
-                      projects, and achievements that showcase individual skills
-                      and expertise in a particular field.
-                    </p>
-                    <div className="blog-details__img-box">
-                      <div className="row">
-                        <div className="col-xl-6">
-                          <div className="blog-details__img-box-img-1">
-                            <img
-                              src="/assets/images/blog/blog-details-img-box-img-1.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div className="col-xl-6">
-                          <div className="blog-details__img-box-img-1">
-                            <img
-                              src="/assets/images/blog/blog-details-img-box-img-2.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="blog-details__prev-and-next">
-                      <div className="blog-details__prev-box">
-                        <a href="#" className="blog-details__prev-arrow">
-                          <span className="icon-arrow-left"></span>
-                        </a>
-                        <a href="#" className="blog-details__prev">
-                          Previous
-                          <br /> post
-                        </a>
-                      </div>
-                      <div className="blog-details__next-box">
-                        <a href="#" className="blog-details__next">
-                          Next
-                          <br /> post
-                        </a>
-                        <a href="#" className="blog-details__next-arrow">
-                          <span className="icon-arrow-right"></span>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="blog-details__keyword-and-social">
-                      <div className="blog-details__keyword-box">
-                        <span>Keyword:</span>
-                        <div className="blog-details__keyword">
-                          <Link href="#">Event Prodigy</Link>
-                          <Link href="#">Event Management</Link>
-                        </div>
-                      </div>
-                      <div className="blog-details__social">
-                        <Link href="#">
-                          <span className="icon-facebook"></span>
-                        </Link>
-                        <Link href="#">
-                          <span className="icon-fi"></span>
-                        </Link>
-                        <Link href="#">
-                          <span className="icon-instagram"></span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="blog-details__comment-box">
-                      <h3 className="blog-details__comment-title">1 Comment</h3>
-                      <p className="blog-details__comment-date">
-                        April 16, 2024
-                      </p>
-                      <h4 className="blog-details__comment-client-name">
-                        Stanio Laito
-                      </h4>
-                      <p className="blog-details__comment-text">
-                        Ished fact that a reader will be distracted by the
-                        readable content of a page.
-                      </p>
-                      <div className="blog-details__comment-btn-box">
-                        <a
-                          href="#"
-                          className="blog-details__comment-btn thm-btn"
+
+                      <div>
+                        <p
+                          style={{
+                            fontSize: 13,
+                            fontStyle: 'normal',
+                            fontWeight: 600
+                          }}
                         >
-                          reply
-                        </a>
+                          Solo para +18
+                        </p>
                       </div>
-                    </div>
-                  </div>
-                  <div className="comment-one">
-                    <h3 className="comment-one__title">Leave a comment</h3>
-                    <p className="comment-one__text">
-                      By using this form you agree with the storage and handling
-                      of your data.
-                    </p>
-                    <form
-                      className="contact-form-validated comment-one__form"
-                      action="/assets/inc/sendemail.php"
-                      method="post"
-                      noValidate
-                    >
-                      <div className="row">
-                        <div className="col-xl-12">
-                          <div className="comment-one__input-box">
-                            <input
-                              type="text"
-                              name="name"
-                              placeholder="Name"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-xl-12">
-                          <div className="comment-one__input-box">
-                            <input
-                              type="email"
-                              name="email"
-                              placeholder="Email"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-xl-12">
-                          <div className="comment-one__input-box text-message-box">
-                            <textarea
-                              name="message"
-                              placeholder="Message here.."
-                              required
-                            ></textarea>
-                          </div>
-                          <div className="comment-one__btn-box">
-                            <button
-                              type="submit"
-                              className="thm-btn comment-one__btn"
-                            >
-                              Send Message
-                              <span className="icon-arrow-right"></span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <div className="result"></div>
-                  </div>
-                </div>
-              </div>
-              {/* Sidebar */}
-              <div className="col-xl-4 col-lg-5">
-                <div className="sidebar">
-                  {/* Search */}
-                  <div className="sidebar__single sidebar__search">
-                    <h3 className="sidebar__title">Search</h3>
-                    <form className="sidebar__search-form">
-                      <input type="search" placeholder="Search...." />
-                      <button type="submit">
-                        <i className="icon-loupe"></i>
-                      </button>
-                    </form>
-                  </div>
 
-                  {/* Categories */}
-                  <div className="sidebar__single sidebar__all-category">
-                    <h3 className="sidebar__title">Category</h3>
-                    <ul className="sidebar__all-category-list list-unstyled">
-                      {categories.map((category, index) => (
-                        <li
-                          key={index}
-                          className={category.active ? "active" : ""}
-                        >
-                          <Link href={category.link}>
-                            <i className="icon-double-angle"></i>
-                            {category.name}
-                            <span>({category.count})</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Recent Posts */}
-                  <div className="sidebar__single sidebar__post">
-                    <h3 className="sidebar__title">Recent Post</h3>
-                    <ul className="sidebar__post-list list-unstyled">
-                      {recentPosts.map((post, index) => (
-                        <li key={index}>
-                          <div className="sidebar__post-content">
-                            <p className="sidebar__post-date">
-                              <span className="icon-calendar"></span>
-                              {post.date}
-                            </p>
-                            <h3>
-                              <Link href={post.link}>{post.title}</Link>
-                            </h3>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="sidebar__single sidebar__tags">
-                    <h3 className="sidebar__title">Tags</h3>
-                    <div className="sidebar__tags-list">
-                      {tags.map((tag, index) => (
-                        <Link href="#" key={index}>
-                          {tag}
-                        </Link>
-                      ))}
                     </div>
                   </div>
                 </div>
+
               </div>
+
             </div>
-          </div>
-        </section>
-        {/*Blog Details End*/}
 
-        {/*CTA One Start*/}
-        <section className="cta-one">
-          <div className="container">
-            <div className="cta-one__inner">
-              <h3 className="cta-one__title">
-                Get Latest Updates Subscribe <br /> to Our Newsletter
-              </h3>
-              <form
-                className="cta-one__form mc-form"
-                data-url="MC_FORM_URL"
-                noValidate
+          </div>
+
+          <div
+            style={{
+              marginTop: 120,
+              marginLeft: 120
+              //justifyContent: 'center',
+              //alignContent: 'center',
+              //justifyItems: 'center',
+              //alignItems: 'center',
+            }}
+          >
+
+            <div
+              style={{
+                color: '#838383',
+                borderRadius: 10,
+                //backgroundColor: 'blue',
+                // marginLeft: isSidebar ? 65 : 0,
+                //marginLeft: isSidebar ? null : 100,
+                //marginRight: 150,
+                marginTop: 20,
+                //padding: 40,
+                marginBottom: 20,
+                width: '65%',
+                paddingTop: 10,
+                paddingLeft: 20,
+                paddingRight: 20,
+                paddingBottom: 20,
+                //marginBottom: 60,
+                //padding: 40,
+                boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+
+              }}
+            >
+
+              <div style={{ paddingTop: 5, paddingBottom: 10, paddingLeft: 5 }}>
+                <p style={{ fontSize: 16, fontWeight: 600 }}> Selección de Tickets </p>
+              </div>
+
+              <div
+                style={{
+                  backgroundColor: '#E5E7EB',
+                  //padding: 10,
+                  //marginTop: 10,
+                  borderRadius: 10,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  color: 'black',
+                  width: '100%',
+                  gap: 30,
+                  alignSelf: 'center',
+                  justifySelf: 'center'
+                }}
               >
-                <div className="cta-one__form-input-box">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    name="EMAIL"
-                  />
-                  <button type="submit" className="cta-one__btn">
-                    <span className="icon-paper-plan"></span>
+                <div
+                  style={{
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    padding: 20
+                  }}
+                >
+                  <p style={{ fontSize: 18, fontWeight: 800 }}> $ 15.00 </p>
+                </div>
+
+                <div
+                  style={{
+                    marginLeft: 30,
+                    padding: 20
+                  }}
+                >
+                  <div>
+                    <p style={{ fontSize: 16, fontWeight: 500 }}> Acceso (Preventa) </p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 16, fontWeight: 500 }}> Join the Festivi Celebrate Special Moments </p>
+                  </div>
+                </div>
+
+
+
+                <div
+                  style={{
+                    display: 'flex',
+                    width: '200px',
+                    color: 'black',
+                  }}
+                >
+                  <button
+                    onClick={decrement}
+                    style={{
+                      backgroundColor: '#EF7C25',
+                      color: 'white',
+                      border: 'none',
+                      width: '70px',
+                      height: '100px',
+                      fontSize: 30,
+                      cursor: 'pointer',
+                      borderTopLeftRadius: 5,
+                      borderBottomLeftRadius: 5
+                    }}
+                  >
+                    -
+                  </button>
+                  <div
+                    style={{
+                      width: '70px',
+                      height: '100px',
+                      fontSize: 30,
+                      backgroundColor: '#EF7C25',
+                      // backgroundColor: 'azul',
+                      color: 'white',
+                      justifyContent: 'center',
+                      alignContent: 'center',
+                      justifyItems: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 800
+                      }}
+                    >
+                      {count}
+                    </p>
+
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      increment()
+                      // handleSidebar()
+                    }}
+                    style={{
+                      backgroundColor: '#EF7C25',
+                      color: 'white',
+                      border: 'none',
+                      width: '70px',
+                      height: '100px',
+                      cursor: 'pointer',
+                      borderTopRightRadius: 5,
+                      borderBottomRightRadius: 5,
+                      fontSize: 30
+                    }}
+                  >
+                    +
                   </button>
                 </div>
-              </form>
+
+
+              </div>
+
+
+              <div style={{ paddingTop: 5, paddingBottom: 10, paddingLeft: 5, paddingTop: 25 }}>
+                <p style={{ fontSize: 16, fontWeight: 600 }}> Descripción </p>
+              </div>
+
+              <div
+                style={{
+                  backgroundColor: 'white',
+                  padding: 20,
+                  //marginTop: 10,
+                  borderRadius: 10,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  color: 'black',
+                  width: '100%',
+                  boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)'
+                }}
+              >
+
+                <p>
+                  Este 1 de noviembre, llega La Bendita, el evento más esperado de las fiestas de Cuenca. Te invitamos a disfrutar de una noche llena de música, energía y entretenimiento, con los mejores DJs
+                  Este 1 de noviembre, llega La Bendita, el evento más esperado de las fiestas de Cuenca. Te invitamos a disfrutar de una noche llena de música, energía y entretenimiento, con los mejores DJs
+                  Este 1 de noviembre, llega La Bendita, el evento más esperado de las fiestas de Cuenca. Te invitamos a disfrutar de una noche llena de música, energía y entretenimiento, con los mejores DJs
+                </p>
+
+              </div>
+
+              <div style={{ paddingTop: 5, paddingBottom: 10, paddingLeft: 5, paddingTop: 25 }}>
+                <p style={{ fontSize: 16, fontWeight: 600 }}> Localizacion </p>
+              </div>
+
+              <div
+                style={{
+                  padding: 10,
+                  boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+                  borderRadius: 10
+                }}
+              >
+                <MapContainer
+                  center={center}
+                  zoom={zoom}
+                  style={{ height: "45.5vh", width: "100%", borderWidth: 5, borderColor: 'black' }}
+                  worldCopyJump={true}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={center}>
+                    <Popup>
+                      Ibarra, Imbabura, Ecuador
+                    </Popup>
+                  </Marker>
+                </MapContainer>
+
+              </div>
+
+              <div style={{ paddingTop: 5, paddingBottom: 10, paddingLeft: 5, paddingTop: 25 }}>
+                <p style={{ fontSize: 16, fontWeight: 600 }}> Organizador </p>
+              </div>
+
+              <div
+                style={{
+                  padding: 10,
+                  boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+                  borderRadius: 10,
+                  display: 'flex',
+                  flexDirection: 'row'
+                }}
+              >
+
+                <div
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#f0f0f0',
+                    overflow: 'hidden',
+                    fontSize: 50 * 0.5,
+                    color: '#555',
+                    margin: 20
+                  }}
+                >
+
+                  <div className="icon">
+                    <span className="icon-user" style={{ fontSize: 50 }}></span>
+                  </div>
+
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 20,
+                    //backgroundColor: 'red',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    width: '60%',
+                  }}
+                >
+
+                  <div style={{ fontSize: 20, color: 'black' }}>
+                    <p> Michael Angelo </p>
+                  </div>
+
+                  <div style={{ fontSize: 16, color: '#838383' }}>
+                    <p> Organizador del Evento </p>
+                  </div>
+
+                </div>
+
+                <div
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#f0f0f0',
+                    overflow: 'hidden',
+                    fontSize: 50 * 0.5,
+                    color: '#555',
+                    margin: 20
+                  }}
+                >
+
+                  <div className="icon">
+                    <LocalPhoneIcon fontSize="large" />
+                  </div>
+
+                </div>
+
+                <div
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#f0f0f0',
+                    overflow: 'hidden',
+                    fontSize: 50 * 0.5,
+                    color: '#555',
+                    margin: 20
+                  }}
+                >
+
+                  <div className="icon">
+                    <MessageIcon fontSize="large" />
+                  </div>
+
+                </div>
+
+              </div>
+
+
             </div>
+
           </div>
+
+          <Sidebar
+            isSidebar={isSidebar}
+            handleSidebar={handleSidebar}
+            count={count}
+          />
+
         </section>
-        {/*CTA One End*/}
       </Layout>
+
     </>
   );
 }

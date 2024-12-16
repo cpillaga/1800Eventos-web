@@ -31,6 +31,7 @@ export default function BuyTicket() {
           marginBottom: 40,
           marginLeft: 20,
           marginRight: 20,
+          padding: 40, 
           borderRadius: 10
         }}
       >

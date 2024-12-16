@@ -11,7 +11,7 @@ export default function Header7({ scroll, isMobileMenu, handleMobileMenu, isSide
                 <div className="main-menu__left">
                   <div className="main-menu__logo">
                     <Link href="/">
-                        <img src="/assets/images/resources/logo-1.png" alt="Logo" />
+                    <img src="/assets/images/resources/Banner1800-orange.png" alt="Logo" />
                     </Link>
                   </div>
                 </div>
@@ -23,7 +23,7 @@ export default function Header7({ scroll, isMobileMenu, handleMobileMenu, isSide
                     <Menu />
                   </div>
                   <div className="main-menu__btn-box">
-                      <Link href="/contact" className="main-menu__btn thm-btn">Buy Ticket <span
+                      <Link href="/" className="main-menu__btn thm-btn">Buy Ticket <span
                               className="icon-arrow-right"></span> 
                       </Link>
                   </div>
@@ -52,7 +52,7 @@ export default function Header7({ scroll, isMobileMenu, handleMobileMenu, isSide
                       <Menu />
                     </div>
                     <div className="main-menu__btn-box">
-                        <Link href="/contact" className="main-menu__btn thm-btn">Buy Ticket <span
+                        <Link href="/" className="main-menu__btn thm-btn">Buy Ticket <span
                                 className="icon-arrow-right"></span> 
                         </Link>
                     </div>

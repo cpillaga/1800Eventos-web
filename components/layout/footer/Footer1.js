@@ -126,10 +126,13 @@ export default function Footer1() {
                        alignContent: 'center',
                        justifyItems: 'center',
                        alignItems: 'center',
-                       paddingBottom: 30
+                       paddingBottom: 60,
+                       paddingTop: 30,
+                       justifySelf: 'center',
+                       alignSelf: 'center' 
+                       //backgroundColor: 'green'
                     }}
                 >
-
                     <img src="/assets/images/shapes/Banner1800-orange.png" alt="" /> 
                     
                 </div>
@@ -137,7 +140,7 @@ export default function Footer1() {
                 <div className="site-footer__bottom">
                     <div className="container">
                         <div 
-                            className="site-footer__bottom-inner" 
+                            className="site-footer__bottom-inner"
                             // style={{
                             //     justifyContent: 'center',
                             //     alignContent: 'center',
