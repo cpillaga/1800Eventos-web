@@ -2,8 +2,8 @@
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import "leaflet/dist/leaflet.css";
-// import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-// import MessageIcon from '@mui/icons-material/Message';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import MessageIcon from '@mui/icons-material/Message';
 // import { useRouter } from 'next/navigation';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -557,7 +557,7 @@ export default function Home() {
                 >
 
                   <div className="icon">
-                    {/* <LocalPhoneIcon fontSize="large" /> */}
+                    <LocalPhoneIcon fontSize="large" />
                   </div>
 
                 </div>
@@ -579,7 +579,7 @@ export default function Home() {
                 >
 
                   <div className="icon">
-                    {/* <MessageIcon fontSize="large" /> */}
+                    <MessageIcon fontSize="large" />
                   </div>
 
                 </div>
