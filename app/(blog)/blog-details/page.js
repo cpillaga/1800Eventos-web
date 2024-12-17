@@ -1,22 +1,30 @@
 "use client"
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
-import ReadMoreAndLess from 'react-read-more-read-less';
 import "leaflet/dist/leaflet.css";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import MessageIcon from '@mui/icons-material/Message';
-
+// import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+// import MessageIcon from '@mui/icons-material/Message';
 // import { useRouter } from 'next/navigation';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Sidebar from "@/components/layout/Sidebar";
 import { useEffect, useState } from "react";
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
+import MapDetails from "@/components/elements/MapDetails";
 
 export default function Home() {
 
   // const router = useRouter();
-  const [data, setData] = useState([]);
+  // const { query } = router;
+
+  // let data = {};
+
+  // if (query.data) {
+  //   data = JSON.parse(query.data); // Deserializa los datos
+  // }
+
+  // console.log("Val: ", data);
+
+  // const [data, setData] = useState([]);
 
   const position = [51.505, -0.09];
   const center = [0.3558, -78.1219];
@@ -63,35 +71,33 @@ export default function Home() {
   ];
 
   const [isSidebar, setSidebar] = useState(false)
+
   const handleSidebar = () => {
     setSidebar(!isSidebar)
   }
+
   const [count, setCount] = useState(0);
 
   const increment = () => {
     setCount(count + 1)
     setSidebar(true)
-    
   };
 
   const decrement = () => {
     if (count > 0) {
       setCount(count - 1);
     }
-
-    // if (count <= 1) {
-    //   setSidebar(false)
-    // }
-
   };
 
   useEffect(() => {
     handleSidebar()
   }, [])
 
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    console.log("Val: ", count)
-  }, [count])
+    setIsClient(true);
+  }, []);
 
 
   return (
@@ -467,23 +473,11 @@ export default function Home() {
                   borderRadius: 10
                 }}
               >
-                <MapContainer
-                  center={center}
-                  zoom={zoom}
-                  style={{ height: "45.5vh", width: "100%", borderWidth: 5, borderColor: 'black' }}
-                  worldCopyJump={true}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={center}>
-                    <Popup>
-                      Ibarra, Imbabura, Ecuador
-                    </Popup>
-                  </Marker>
-                </MapContainer>
+                {isClient &&
+                  <MapDetails>
 
+                  </MapDetails>
+                }
               </div>
 
               <div style={{ paddingTop: 5, paddingBottom: 10, paddingLeft: 5, paddingTop: 25 }}>
@@ -563,7 +557,7 @@ export default function Home() {
                 >
 
                   <div className="icon">
-                    <LocalPhoneIcon fontSize="large" />
+                    {/* <LocalPhoneIcon fontSize="large" /> */}
                   </div>
 
                 </div>
@@ -585,7 +579,7 @@ export default function Home() {
                 >
 
                   <div className="icon">
-                    <MessageIcon fontSize="large" />
+                    {/* <MessageIcon fontSize="large" /> */}
                   </div>
 
                 </div>

@@ -2,8 +2,9 @@
 // import { useParams } from '@/components/context/ParamsContext';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation'
 // import { useRouter } from 'next/router'; 
- 
+
 
 // Mock data for demonstration purposes
 const blogPosts = [
@@ -102,7 +103,11 @@ const blogPosts = [
 
 export default function BlogOne() {
 
-  // const router = useRouter();
+  const router = useRouter();
+
+  const handleDetalles = (data) => {
+    router.push('/blog-details');
+  };
 
   return (
     <section
@@ -152,11 +157,34 @@ export default function BlogOne() {
                     />
                     {/* Bandera: Hover de Card*/}
                     <div className="blog-one__hover">
-                      <Link
-                        href={post.link}
+
+                      <button
+                        type="button"
+                        style={{
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          color: 'white',
+                          fontSize: 20,
+                          fontWeight: 600
+                        }}
+                        onClick={() => {
+
+                          const data = {
+                            id: post.id,
+                            title: post.link,
+                            image: post.image,
+                            date: post.date,
+                            author: post.author,
+                            link: post.link,
+                            animationDelay: post.animationDelay,
+                            animationClass: post.animationClass
+                          }
+
+                          handleDetalles(data)
+                        }}
                       >
-                        <p style={{ color: 'white', fontSize: 30, fontWeight: 600 }}> Buy Now </p>
-                      </Link>
+                        Buy Now
+                      </button>
 
                       {/* <button 
                         type="button"
@@ -219,11 +247,11 @@ export default function BlogOne() {
                         {post.title}
                       </Link>
                     </h3>
-                    {/* <div className="blog-one__btn-box-two">
+                    <div className="blog-one__btn-box-two">
                       <Link href={post.link} className="blog-one__btn thm-btn-read-blog">
                         Read More<span className="icon-arrow-right"></span>
                       </Link>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

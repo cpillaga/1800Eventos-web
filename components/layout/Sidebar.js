@@ -10,9 +10,6 @@ export default function Sidebar({
   flag = true,
 }) {
 
-  useEffect(() => {
-    console.log("Valor: ", count)
-  }, [count])
 
   return (
     <>

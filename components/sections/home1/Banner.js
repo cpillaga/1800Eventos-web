@@ -95,7 +95,7 @@ export default function Banner() {
                           </li>
                         </ul>
                         <div className="main-slider__btn-box">
-                          <Link href="/blog-details" className="main-slider__btn thm-btn" style={{ color: 'white', backgroundColor: '#ef7c25', borderRadius: 30}}>
+                          <Link href="/" className="main-slider__btn thm-btn" style={{ color: 'white', backgroundColor: '#ef7c25', borderRadius: 30}}>
                             Purchase Ticket
                             <span className="icon-arrow-right"></span>
                           </Link>

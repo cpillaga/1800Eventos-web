@@ -5,7 +5,7 @@ const CONSULTAR_EVENTOS_URL = initConfig.host + "/sofi/api/v1/event";
 
 export function consultar_eventos() {
 
-    console.log("URL: ", CONSULTAR_EVENTOS_URL)
+    
 
     return axios.post(
         
