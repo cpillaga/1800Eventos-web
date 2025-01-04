@@ -6,7 +6,7 @@ export default function Menu() {
   return (
     <ul className="main-menu__list">
       <li className="dropdown">
-        <Link href="/"><p style={{ color: 'gray'}}>Home</p></Link>
+        <Link href="/main"><p style={{ color: 'gray'}}>Home</p></Link>
         {/* <ul>
           <li><Link href="/">Home One</Link></li>
           <li><Link href="/index-2">Home Two</Link></li>
@@ -30,7 +30,7 @@ export default function Menu() {
         </ul> */}
       </li>
       <li className="dropdown">
-        <Link href="#"><p style={{ color: 'gray'}}> Mis Tickets</p></Link>
+        <Link href="/tickets"><p style={{ color: 'gray'}}> Mis Tickets</p></Link>
         {/* <ul>
           <li><Link href="/about">About Us</Link></li>
           <li><Link href="/team">Team</Link></li>

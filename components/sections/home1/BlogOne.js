@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation'
+import initConfig from "../../configs/initConfig";
 // import { useRouter } from 'next/router'; 
 
 
@@ -101,13 +102,18 @@ const blogPosts = [
   }
 ];
 
-export default function BlogOne() {
+export default function BlogOne({
+  eventos,
+  idUser
+}) {
+
+  useEffect(() => {
+    console.log("En Blog: ", eventos)
+    console.log("Config: ", initConfig.host)
+  }, [eventos]) 
+
 
   const router = useRouter();
-
-  const handleDetalles = (data) => {
-    router.push('/blog-details');
-  };
 
   return (
     <section
@@ -131,9 +137,9 @@ export default function BlogOne() {
         <div className="blog-one__top">
           <div className="section-title text-left">
             <div className="section-title__tagline-box">
-              <span className="section-title__tagline" style={{ color: '#838383' }}>Latest Blog And news</span>
+              <span className="section-title__tagline" style={{ color: '#838383' }}> Todos los Eventos</span>
             </div>
-            <h2 className="section-title__title">Whats happening near</h2>
+            <h2 className="section-title__title">¿Que está sucediendo cerca?</h2>
           </div>
           {/* <div className="blog-one__btn-box">
             <Link href="/blog" className="blog-one__btn thm-btn-view-blog">
@@ -143,7 +149,146 @@ export default function BlogOne() {
         </div>
         <div className="blog-one__bottom">
           <div className="row" >
-            {blogPosts.map(post => (
+            {
+              eventos.map((e) => (
+
+                <div
+                  key={e?._id}
+                  className={`col-xl-4 col-lg-4 col-md-6 wow fadeInLeft`}
+                  data-wow-delay={'fadeInLeft'}
+                >
+                  <div className="blog-one__single">
+                    <div className="blog-one__img" style={{ boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.2)', color: '#202226' }}>
+
+                      <img
+                        src={initConfig.host + (e?.image || '')}
+                        // alt={e?.title}
+                      />
+
+                      {/* Bandera: Hover de Card */}
+                      <div className="blog-one__hover">
+
+                        <button
+                          type="button"
+                          style={{
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            color: 'white',
+                            fontSize: 20,
+                            fontWeight: 600
+                          }}
+                          onClick={()=>{}
+                            // () =>
+                            // router.push({
+                            //   pathname: '/blog-details',
+                            //   query: { id: e?._id },
+                            // })
+                          }
+                        >
+                          Buy Now
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                    <div
+                      className="blog-one__content"
+                      style={{
+                        backgroundColor: 'white',
+                        boxShadow: '0px 3px 3px rgba(0, 0, 0, 0.3)',
+                        color: '#202226'
+                      }}
+                    >
+                      <ul
+                        className="blog-one__meta list-unstyled"
+                        style={{
+                          color: '#838383'
+                        }}
+                      >
+                        <li>
+                          <span className="icon-user"></span> &nbsp; By admin
+                        </li>
+                        <li>
+                          <span className="icon-calendar"></span> &nbsp; {e?.date}
+                        </li>
+                      </ul>
+
+                      <p
+                        // className="blog-one__title"
+                        style={{
+                          color: 'black',
+                          fontSize: 20,
+                          fontWeight: 800,
+                          marginTop: 15,
+                          marginBottom: 5
+                        }}
+                      >
+                        {e?.title}
+                      </p>
+
+                      <p
+                        className="blog-one__title"
+                        style={{
+                          fontSize: 16,
+                          marginTop: 15,
+                          marginBottom: 20,
+                        }}
+                      >
+                        <Link
+                          href={{
+                            pathname: '/blog-details',
+                            query: {
+                              id: e?._id,
+                              idUser: idUser,
+                              title: e?.title,
+                              price: e?.price.toString(),
+                              location: e?.location,
+                              date: e?.date,
+                              description: e?.description,
+                              image: e?.image,
+                              availableTickets: e?.availableTickets,
+                              etapas: JSON.stringify(e?.etapas),
+                              localidades: JSON.stringify(e?.localidades)
+                            },
+                          }}
+                        >
+                          {e?.description}
+                        </Link>
+                      </p>
+
+                      <div className="blog-one__btn-box-two">
+                        <Link
+                          href={{
+                            pathname: '/blog-details',
+                            query: {
+                              id: e?._id,
+                              title: e?.title,
+                              price: e?.price.toString(),
+                              location: e?.location,
+                              date: e?.date,
+                              description: e?.description,
+                              image: e?.image,
+                              availableTickets: e?.availableTickets,
+                              etapas: JSON.stringify(e?.etapas),
+                              localidades: JSON.stringify(e?.localidades)
+                            },
+                          }}
+                          className="blog-one__btn thm-btn-read-blog">
+                          Comprar <span className="icon-arrow-right"></span>
+                        </Link>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              ))
+            }
+
+            {/* {blogPosts.map(post => (
+
               <div
                 key={post.id}
                 className={`col-xl-4 col-lg-4 col-md-6 wow ${post.animationClass}`}
@@ -155,7 +300,7 @@ export default function BlogOne() {
                       src={post.image}
                       alt={post.title}
                     />
-                    {/* Bandera: Hover de Card*/}
+                   
                     <div className="blog-one__hover">
 
                       <button
@@ -186,39 +331,10 @@ export default function BlogOne() {
                         Buy Now
                       </button>
 
-                      {/* <button 
-                        type="button"
-                        style={{
-                          backgroundColor: 'transparent',
-                          border: 'none',
-                          color: 'white',
-                          fontSize: 20,
-                          fontWeight: 600
-                        }} 
-                        onClick={() => router.push(post.link)}
-                      >
-                          Buy Now
-                      </button> */}
-
-                      {/* <Link
-                        href={{
-                          pathname: post.link,
-                          query: {
-                            'id': posst.id,
-                            'title': post.title,
-                            'image': post.image,
-                            'date': post.date,
-                            'author': post.author,
-                            'link': post.link,
-                            'animationDelay': post.animationDelay,
-                            'animationClass': post.animationClass
-                          },
-                        }}
-                      >
-                        <p style={{ color: 'white', fontSize: 30, fontWeight: 600 }}> Buy Now </p>
-                      </Link> */}
                     </div>
+
                   </div>
+
                   <div className="blog-one__content" style={{ backgroundColor: 'white', boxShadow: '0px 3px 3px rgba(0, 0, 0, 0.3)', color: '#202226' }}>
                     <ul className="blog-one__meta list-unstyled" style={{ color: '#838383' }}>
                       <li>
@@ -255,7 +371,8 @@ export default function BlogOne() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
+
           </div>
         </div>
       </div>

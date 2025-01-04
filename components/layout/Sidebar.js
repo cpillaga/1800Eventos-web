@@ -4,12 +4,31 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useEffect, useState } from "react";
 
 export default function Sidebar({
+  id,
+  idUser,
+  title,
+  price,
+  date,
+  description,
+  location,
+  image,
+  availableTickets,
   isSidebar,
   handleSidebar,
-  count,
+  cantidad,
+  valorTotal,
+  initConfig,
+  etapas,
+  localidades,
   flag = true,
+
 }) {
 
+  const [descuento, setDescuento] = useState(0.00)
+  const [cargoServicio, setCargoServicio] = useState(1.00)
+  const [impuesto, setImpuesto] = useState(1.13)
+
+  const total = valorTotal + descuento + cargoServicio + impuesto;
 
   return (
     <>
@@ -55,10 +74,12 @@ export default function Sidebar({
                     }}
                   // className="logo"
                   >
-                    <Link href="/">
+                    {/* <Link href="/"> */}
+
+                    {image !== undefined && (
+
                       <img
-                        src="/assets/images/blog/item1.png"
-                        alt=""
+                        src={initConfig + image}
                         style={{
                           borderRadius: 10,
                           width: '100%',
@@ -66,7 +87,10 @@ export default function Sidebar({
                           objectFit: 'cover'
                         }}
                       />
-                    </Link>
+
+                    )}
+
+                    {/* </Link> */}
                   </div>
 
                   <div
@@ -78,25 +102,29 @@ export default function Sidebar({
                       borderRadius: 10,
                       justifySelf: 'center',
                       alignSelf: 'center',
-                      padding: 15,
+                      paddingTop: 5,
+                      paddingLeft: 15,
+                      paddingBottom: 7,
                       boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
                     }}
                   >
+
                     <div
                       style={{
+                        width: '305px',
                         color: '#838383',
                         textAlign: 'left'
                       }}
                     >
                       <p
                         style={{
-                          fontSize: 14,
+                          fontSize: 12,
                           fontStyle: 'normal',
                           fontWeight: 600,
-                          color: 'black'
-                          //marginBottom: 30
+                          color: 'black',
+                          marginBottom: 5
                         }}
-                      > Join the Festivi Celebrate Special Moments </p>
+                      > {description} </p>
 
                       <div
                         style={{
@@ -113,7 +141,7 @@ export default function Sidebar({
                           <span className="icon-calendar"></span>
                         </div>
 
-                        <div>
+                        <div style={{ marginLeft: 5 }}>
                           <p
                             style={{
                               fontSize: 12,
@@ -121,7 +149,7 @@ export default function Sidebar({
                               fontWeight: 600
                             }}
                           >
-                            October 19, 2022
+                            {date}
                           </p>
                         </div>
 
@@ -138,7 +166,7 @@ export default function Sidebar({
                           <span className="icon-pin"></span>
                         </div>
 
-                        <div>
+                        <div style={{ marginLeft: 5 }}>
                           <p
                             style={{
                               fontSize: 12,
@@ -146,7 +174,7 @@ export default function Sidebar({
                               fontWeight: 600
                             }}
                           >
-                            Hacienda La Quinta, Cuenca - Ecuador
+                            {location}
                           </p>
                         </div>
 
@@ -169,7 +197,7 @@ export default function Sidebar({
                           <span className="icon-quote"></span>
                         </div>
 
-                        <div>
+                        <div style={{ marginLeft: 5 }}>
                           <p
                             style={{
                               fontSize: 12,
@@ -186,20 +214,23 @@ export default function Sidebar({
 
                   </div>
 
-                  {count > 0 &&
+                  {cantidad > 0 &&
 
                     <div
                       // className="form-inner"
                       style={{
                         position: 'absolute',
-                        top: '175%',
+                        top: '167%',
                         left: '13%',
                         width: '272px',
                         backgroundColor: 'white',
                         borderRadius: 10,
                         justifySelf: 'center',
                         alignSelf: 'center',
-                        padding: 15,
+                        paddingTop: 10,
+                        paddingLeft: 15,
+                        paddingRight: 15,
+                        paddingBottom: 15,
                         boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)'
                       }}
                     >
@@ -233,7 +264,7 @@ export default function Sidebar({
                         >
 
                           <p> Subtotal </p>
-                          <p> $ 15.00 </p>
+                          <p> $ {valorTotal.toFixed(2)} </p>
 
                         </div>
 
@@ -247,7 +278,7 @@ export default function Sidebar({
                           }}
                         >
                           <p> Descuento </p>
-                          <p> $ 0.00 </p>
+                          <p> $ {descuento.toFixed(2)} </p>
 
                         </div>
 
@@ -261,7 +292,7 @@ export default function Sidebar({
                           }}
                         >
                           <p> Cargo por Servicio </p>
-                          <p> $ 1.00 </p>
+                          <p> $ {cargoServicio.toFixed(2)} </p>
                         </div>
 
                         <div
@@ -274,12 +305,45 @@ export default function Sidebar({
                           }}
                         >
                           <p> Impuesto </p>
-                          <p> $ 1.13 </p>
+                          <p> $ {impuesto.toFixed(2)} </p>
+                        </div>
+
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignContent: 'center',
+                            fontSize: 12
+                          }}
+                        >
+                          <p> Total </p>
+                          <p> $ {total.toFixed(2)} </p>
                         </div>
 
 
                         <div>
-                          <Link href="/team-details" className="main-slider__btn thm-btn"
+                          <Link
+                            href={{
+                              pathname: '/team-details',
+                              query: {
+                                id: id,
+                                idUser: idUser,
+                                title: title,
+                                price: price,
+                                date: date,
+                                description: description,
+                                location: location,
+                                image: image,
+                                availableTickets: availableTickets,
+                                cantidad: cantidad,
+                                valorTotal: valorTotal,
+                                initConfig: initConfig,
+                                etapas: JSON.stringify(etapas),
+                                localidades: JSON.stringify(localidades),
+                              },
+                            }}
+                            className="main-slider__btn thm-btn"
                             style={{
                               color: 'white',
                               backgroundColor: '#ef7c25',

@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import initConfig from "../../configs/initConfig";
 
-export default function BuyTicket() {
+export default function BuyTicket({
+  eventos,
+  idUser
+}) {
   // State for dynamic content
   const [ticketContent, setTicketContent] = useState({
     address: "Mirpur 01 Road N 12 Dhaka Bangladesh",
@@ -31,65 +35,87 @@ export default function BuyTicket() {
           marginBottom: 40,
           marginLeft: 20,
           marginRight: 20,
-          padding: 40, 
+          padding: 40,
           borderRadius: 10
         }}
       >
-        <div className="container" style={{ color: 'black'}}>
-          <div className="row" style={{ color: 'black' }}>
-            <div className="col-xl-6" style={{ color: 'black' }}>
-              <div
-                className="buy-ticket__left wow fadeInLeft"
-                data-wow-delay="100ms"
-                style={{ color: 'black' }}
 
-              >
-                <ul className="buy-ticket__address list-unstyled">
-                  <li>
-                    <div className="icon">
-                      <span className="icon-clock" style={{ color: '#838383' }}></span>
-                    </div>
-                    <div className="text">
-                      <p style={{ color: '#838383' }}>{ticketContent.address}</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="icon">
-                      <span className="icon-pin" style={{ color: '#838383' }}></span>
-                    </div>
-                    <div className="text">
-                      <p style={{ color: '#838383' }}>{ticketContent.timing}</p>
-                    </div>
-                  </li>
-                </ul>
-                <h3 className="buy-ticket__title" style={{ color: '#838383' }} >{ticketContent.title}</h3>
-                <p className="buy-ticket__text" style={{ color: '#838383' }}>{ticketContent.description}</p>
-                <div className="buy-ticket__btn-box">
-                  {ticketContent.buttons.map((button) => (
+        {eventos.length > 0 && (
+
+          <div className="container" style={{ color: 'black' }}>
+
+            <div className="row" style={{ color: 'black' }}>
+              <div className="col-xl-6" style={{ color: 'black' }}>
+                <div
+                  className="buy-ticket__left wow fadeInLeft"
+                  data-wow-delay="100ms"
+                  style={{ color: 'black' }}
+
+                >
+                  <ul className="buy-ticket__address list-unstyled">
+                    <li>
+                      <div className="icon">
+                        <span className="icon-clock" style={{ color: '#838383' }}></span>
+                      </div>
+                      <div className="text">
+                        <p style={{ color: '#838383' }}>{eventos[eventos.length - 1]?.date}</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="icon">
+                        <span className="icon-pin" style={{ color: '#838383' }}></span>
+                      </div>
+                      <div className="text">
+                        <p style={{ color: '#838383' }}>{eventos[eventos.length - 1]?.location}</p>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3 className="buy-ticket__title" style={{ color: '#838383' }} >{eventos[eventos.length - 1]?.title}</h3>
+                  <p className="buy-ticket__text" style={{ color: '#838383' }}>{eventos[eventos.length - 1]?.description}</p>
+                  <div className="buy-ticket__btn-box">
+                    {/* {ticketContent.buttons.map((button) => ( */}
                     <Link
-                      key={button.id}
-                      href={button.link}
-                      className={`${button.class} thm-btn`}
+                      key={eventos[eventos.length - 1]?.id}
+                      href={{
+                        pathname: '/blog-details',
+                        query: {
+                          id: eventos[eventos.length - 1]?._id,
+                          title: eventos[eventos.length - 1]?.title,
+                          price: eventos[eventos.length - 1]?.price.toString(),
+                          location: eventos[eventos.length - 1]?.location,
+                          date: eventos[eventos.length - 1]?.date,
+                          description: eventos[eventos.length - 1]?.description,
+                          image: eventos[eventos.length - 1]?.image,
+                          availableTickets: eventos[eventos.length - 1]?.availableTickets,
+                          etapas: JSON.stringify(eventos[eventos.length - 1]?.etapas),
+                          localidades: JSON.stringify(eventos[eventos.length - 1]?.localidades)
+                        },
+                      }}
+                      className={`thm-btn`}
                     >
-                      {button.text}
+                      Comprar
                       <span className="icon-arrow-right"></span>
                     </Link>
-                  ))}
+                    {/* ))} */}
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-6">
+                <div
+                  className="buy-ticket__right wow fadeInRight"
+                  data-wow-delay="300ms"
+                >
+                  <div className="buy-ticket__img">
+                    <img src={initConfig.host + (eventos[eventos.length - 1]?.image || '')} alt="Ticket Image" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-xl-6">
-              <div
-                className="buy-ticket__right wow fadeInRight"
-                data-wow-delay="300ms"
-              >
-                <div className="buy-ticket__img">
-                  <img src={ticketContent.ticketImage} alt="Ticket Image" />
-                </div>
-              </div>
-            </div>
+
           </div>
-        </div>
+
+        )}
+
       </section>
       {/* Buy Ticket End */}
     </>
