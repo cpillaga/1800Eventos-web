@@ -24,7 +24,8 @@ export default function Layout({
     wrapperCls, 
     estadoCompra, 
     ticket = {},
-    handleCreateTickets = () => {}
+    handleCreateTickets = () => {},
+    dataArray = []
 }){
     const [scroll, setScroll] = useState(0)
     // Mobile Menu
@@ -68,7 +69,7 @@ export default function Layout({
                 }}
             >
 
-                <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} estadoCompra={estadoCompra} ticket={ticket || {}} handleCreateTickets={handleCreateTickets}/>
+                <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} estadoCompra={estadoCompra} ticket={ticket || {}} handleCreateTickets={handleCreateTickets} dataArray={dataArray || []}/>
 
                 {/* {!headerStyle && <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} />}
                 {headerStyle == 1 ? <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} /> : null}

@@ -28,6 +28,7 @@ export default function Home() {
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
 
   const [isSidebar, setSidebar] = useState(false)
+  const [enSesion, setEnSesion] = useState(false)
 
   const handleSidebar = () => {
     setSidebar(!isSidebar)
@@ -577,6 +578,8 @@ export default function Home() {
             initConfig={initConfig.host}
             etapas={etapas}
             localidades={localidades}
+            enSesion={enSesion}
+            setEnSesion={setEnSesion} 
           />
         </section>
       </Layout>

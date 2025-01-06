@@ -27,12 +27,12 @@ const swiperOptions = {
 export default function Banner({
   eventos,
   idUser,
-  guardarTickets
+  guardarTickets,
 }) {
 
-  // useEffect(() => {
-  //   console.log("Banner: ", eventos)
-  // }, [eventos])
+  useEffect(() => {
+    console.log("Banner: ", initConfig.host + eventos[0]?.image)
+  }, [eventos])
 
 
   return (

@@ -12,34 +12,37 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
 
-  const id = useSearchParams().get('id');
-  const idUser = useSearchParams().get('idUser');
-  const title = useSearchParams().get('title');
-  const price = useSearchParams().get('price');
-  const date = useSearchParams().get('date');
-  const description = useSearchParams().get('description');
-  const location = useSearchParams().get('location');
-  const image = useSearchParams().get('image');
-  const availableTickets = useSearchParams().get('availableTickets');
-  const cantidad = useSearchParams().get('cantidad');
-  const valorTotal = useSearchParams().get('valorTotal');
-  const initConfig = useSearchParams().get('initConfig');
+  const [teamDetails, setTeamDetails] = useState(null);
 
-  const etapasString = useSearchParams().get('etapas');
-  const localidadesString = useSearchParams().get('localidades');
+  useEffect(() => {
+   
+    const teamDetailsData = localStorage.getItem('teamDetailsData');
+    if (teamDetailsData) {
+      const parsedData = JSON.parse(teamDetailsData);
+      setTeamDetails(parsedData);
+    }
+  }, []);
+
+  const id = teamDetails?.id;
+  const idUser = teamDetails?.idUser;
+  const title = teamDetails?.title;
+  const price = teamDetails?.price;
+  const date = teamDetails?.date;
+  const description = teamDetails?.description;
+  const location = teamDetails?.location;
+  const image = teamDetails?.image;
+  const availableTickets = teamDetails?.availableTickets;
+  const cantidad = teamDetails?.cantidad;
+  const valorTotal = teamDetails?.valorTotal;
+  const initConfig = teamDetails?.initConfig;
+
+  const etapasString = teamDetails?.etapas;
+  const localidadesString = teamDetails?.localidades;
   const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
 
   const [text, setText] = useState("https://example.com");
   const [dataArray, setDataArray] = useState([])
-
-  // const qrData = Array.from({ length: parseInt(cantidad) }, (_, index) => ({
-  //   id: `${id}-${index + 1}`,
-  //   value: `https://example.com/ticket/${id}-${index + 1}`,
-  //   label: `Ticket ${index + 1}`,
-  // }));
-
-  const router = useRouter();
 
   useEffect(() => {
 
@@ -65,12 +68,6 @@ export default function Home() {
     setDataArray(newDataArray)
  
   }, [id])
-
-
-  useEffect(() => {
-    console.log("Array: ", dataArray)
-  }, [id])
-
 
   const [estadoCompra, setEstadoCompra] = useState('Descargar Ticket')
   const [ticket, setTicket] = useState({
@@ -113,6 +110,7 @@ export default function Home() {
         estadoCompra={estadoCompra}
         ticket={ticket || {}}
         handleCreateTickets={handleCreateTickets}
+        dataArray={dataArray}
       >
         <div>
           {/*Team Details Info Start*/}
@@ -142,17 +140,19 @@ export default function Home() {
 
                 <div>
 
-                  <img
-                    src={initConfig + image}
-                    // alt={member.name}
-                    style={{
-                      borderTopLeftRadius: 10,
-                      borderBottomLeftRadius: 10,
-                      width: '480px',
-                      height: '380px',
-                      objectFit: 'cover'
-                    }}
-                  />
+                  {image &&
+                    <img
+                      src={initConfig + image}
+                      // alt={member.name}
+                      style={{
+                        borderTopLeftRadius: 10,
+                        borderBottomLeftRadius: 10,
+                        width: '480px',
+                        height: '380px',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  }
 
                 </div>
 

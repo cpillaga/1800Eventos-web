@@ -2,6 +2,8 @@
 import Link from "next/link";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
+
 
 export default function Sidebar({
   id,
@@ -21,14 +23,45 @@ export default function Sidebar({
   etapas,
   localidades,
   flag = true,
-
+  enSesion = false,
+  setEnSesion
 }) {
+
+  const router = useRouter();
 
   const [descuento, setDescuento] = useState(0.00)
   const [cargoServicio, setCargoServicio] = useState(1.00)
   const [impuesto, setImpuesto] = useState(1.13)
 
+  const [path, setPath] = useState('/')
+  const [dataSend, setDataSend] = useState({})
+
   const total = valorTotal + descuento + cargoServicio + impuesto;
+
+  const handleClick = () => {
+    const queryData = {
+      id: id,
+      idUser: idUser,
+      title: title,
+      price: price,
+      date: date,
+      description: description,
+      location: location,
+      image: image,
+      availableTickets: availableTickets,
+      cantidad: cantidad,
+      valorTotal: valorTotal,
+      initConfig: initConfig,
+      etapas: JSON.stringify(etapas),
+      localidades: JSON.stringify(localidades),
+    };
+
+    console.log("Query Data: ", queryData)
+
+    
+    localStorage.setItem('teamDetailsData', JSON.stringify(queryData));
+  
+  };
 
   return (
     <>
@@ -323,26 +356,28 @@ export default function Sidebar({
 
 
                         <div>
+                          
                           <Link
                             href={{
-                              pathname: '/team-details',
-                              query: {
-                                id: id,
-                                idUser: idUser,
-                                title: title,
-                                price: price,
-                                date: date,
-                                description: description,
-                                location: location,
-                                image: image,
-                                availableTickets: availableTickets,
-                                cantidad: cantidad,
-                                valorTotal: valorTotal,
-                                initConfig: initConfig,
-                                etapas: JSON.stringify(etapas),
-                                localidades: JSON.stringify(localidades),
-                              },
+                              pathname: '/login',
+                              // query: {
+                              //   id: id,
+                              //   idUser: idUser,
+                              //   title: title,
+                              //   price: price,
+                              //   date: date,
+                              //   description: description,
+                              //   location: location,
+                              //   image: image,
+                              //   availableTickets: availableTickets,
+                              //   cantidad: cantidad,
+                              //   valorTotal: valorTotal,
+                              //   initConfig: initConfig,
+                              //   etapas: JSON.stringify(etapas),
+                              //   localidades: JSON.stringify(localidades),
+                              // },
                             }}
+                            onClick={handleClick}
                             className="main-slider__btn thm-btn"
                             style={{
                               color: 'white',
@@ -360,10 +395,11 @@ export default function Sidebar({
                               justifySelf: 'center',
                               alignSelf: 'center'
                             }}>
-                            {/* <span className="icon-arrow-right"></span> */}
+                            
                             <LocalMallIcon fontSize="small" />
                             Comprar Ahora
                           </Link>
+
                         </div>
 
                       </div>
@@ -381,6 +417,7 @@ export default function Sidebar({
         </div>
 
       </div>
+      {/* <span className="icon-arrow-right"></span> */}
       {/* End sidebar widget content */}
     </>
   );

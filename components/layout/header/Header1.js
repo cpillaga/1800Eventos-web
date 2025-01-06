@@ -3,29 +3,12 @@ import { useRouter } from 'next/navigation';
 import Menu from "../Menu"
 import MobileMenu from "../MobileMenu"
 import { crear_tickets } from "@/components/api/TicketsApi";
-export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSidebar, handlePopup, handleSidebar, estadoCompra, ticket = {}, handleCreateTickets }) {
+export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSidebar, handlePopup, handleSidebar, estadoCompra, ticket = {}, handleCreateTickets, dataArray }) {
 
   const router = useRouter();
+  const handleSendTickets = () => {
 
-  const handleSendTickets = (ticket) => {
-
-    const cantidad = ticket.cantidad;
-    const array_tickets = [];
-
-    for (let i = 0; i < cantidad; i++) {
-      array_tickets.push({
-        eventId: ticket.id, 
-        userId: ticket.idUser,
-        isValid: true, 
-        purchaseDate: ticket.cantidad,
-        paymentStatus: "PENDING",
-        stageId: ticket.etapas[0]._id,
-        localidadId: ticket.localidades[0].id,
-        isTransferred: false
-      });
-    }
-
-    crear_tickets(array_tickets)
+    crear_tickets(dataArray)
       .then((res) => {
         
         console.log("Crear: ", res)
@@ -85,17 +68,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
                         className="main-menu__btn thm-btn"
                         style={{ border: 'none' }}
                         onClick={() => {
-                          // console.log("Enviar Datos: ", ticket.idUser)
-                          // console.log("Enviar Datos: ", ticket.id)
-                          // console.log("Enviar Datos: ", ticket.cantidad)
-                          // console.log("Enviar Datos: ", true)
-                          // console.log("Enviar Datos: ", false)
-                          // console.log("Enviar Datos: ", "PENDING")
-                          // console.log("Enviar Datos: ", ticket.etapas[0]._id)
-                          // console.log("Enviar Datos: ", ticket.localidades[0]._id)
-                          // console.log("Enviar Datos: ", false)
-                          // console.log("Enviar Datos: ", ticket.etapas)
-                          handleSendTickets(ticket)
+                          handleSendTickets()
                         }}
                       >
 
