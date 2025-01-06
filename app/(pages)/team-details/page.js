@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
 
   const [teamDetails, setTeamDetails] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
    
@@ -21,8 +22,17 @@ export default function Home() {
       const parsedData = JSON.parse(teamDetailsData);
       setTeamDetails(parsedData);
     }
+
+    const user = localStorage.getItem('userData');
+    if (user) {
+      const parsedData = JSON.parse(user);
+      setUserData(parsedData);
+    }
+
   }, []);
 
+
+  const test = userData?.id;
   const id = teamDetails?.id;
   const idUser = teamDetails?.idUser;
   const title = teamDetails?.title;

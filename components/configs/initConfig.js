@@ -1,8 +1,9 @@
-const ambiente = 'produccion';
+const ambiente = 'local';
 const urlAmbiente = {
     local:
     {
-        host: 'http://192.168.1.7:3002',
+        // host: 'http://192.168.1.7:3002',
+        host: 'http://192.168.214.230:3002'
     },
     produccion:
     {

@@ -10,10 +10,8 @@ export default function LoginScreen() {
 
     const router = useRouter();
 
-    const title = useSearchParams().get('title');
-   
-    // const teamDetailsData = localStorage.getItem('teamDetailsData');
-    // console.log("OnLogin: ", teamDetailsData)
+    const teamDetailsData = localStorage.getItem('teamDetailsData');
+    const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
 
     const [openRegister, setOpenRegister] = useState(false);
 
@@ -21,7 +19,7 @@ export default function LoginScreen() {
     const [passwordLogin, setPasswordLogin] = useState('');
     const [estadoSesion, setEstadoSesion] = useState(false);
 
-    const [dataStorage, setDataStorage] = useState({})
+    const [queryData, setQueryData] = useState(null);
 
     const handleOpenModalRegister = () => {
         setOpenRegister(!openRegister)
@@ -31,11 +29,43 @@ export default function LoginScreen() {
 
         iniciar_sesion(data)
             .then((res) => {
+
                 console.log("Data Sesion: ", res.data)
+
                 if (res.data) {
+
                     sessionStorage.setItem('userData', JSON.stringify(res.data));
-                    router.push('/team-details');
+                    const teamDetailsData = localStorage.getItem('teamDetailsData');
+                    
+                    if(teamDetailsData){
+
+                        const teamDetailsDataParsed = JSON.parse(teamDetailsData);
+
+                        if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
+
+                            const combinedData = {
+                                ...teamDetailsDataParsed,
+                                idUser: res.data.id
+                            };
+
+                            setQueryData(combinedData);
+                            localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
+
+                            router.push('/team-details');
+
+                        }
+                        else{
+                            console.log('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
+                        }
+
+                    }
+                    else{
+                        setQueryData({});
+                    }
+                    
+                    // router.push('/team-details');
                 }
+
             })
             .catch((err) => {
                 console.log("Error Sesion: ", err)

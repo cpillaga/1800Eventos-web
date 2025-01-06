@@ -21,6 +21,8 @@ function TicketsPage() {
 
     useEffect(() => {
 
+        console.log("Consulta: ", idConsulta)
+
         if (idConsulta) {
 
             obtener_tickets({ userId: idConsulta })
