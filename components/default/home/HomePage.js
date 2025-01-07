@@ -10,7 +10,7 @@ import initConfig from '@/components/configs/initConfig'
 
 function HomePage() {
 
-    const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/eventos/consultarImagenEvento";
+    const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/api/eventos/consultarImagenEvento";
 
     const [eventos, setEventos] = useState([])
     const [guardarTickets, setGuardarTickets] = useState(false)

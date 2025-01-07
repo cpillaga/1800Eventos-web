@@ -1,8 +1,8 @@
 import initConfig from "../configs/initConfig";
 import axios from 'axios';
 
-const CONSULTAR_EVENTOS_URL = initConfig.host + "/eventos/obtenerEventos";
-const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/eventos/consultarImagenEvento";
+const CONSULTAR_EVENTOS_URL = initConfig.host + "/api/eventos/obtenerEventos";
+const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/api/eventos/consultarImagenEvento";
 
 export function consultar_eventos() {
     

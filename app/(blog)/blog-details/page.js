@@ -12,7 +12,7 @@ import MapDetails from "@/components/elements/MapDetails";
 
 export default function Home() {
 
-  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/eventos/consultarImagenEvento";
+  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/api/eventos/consultarImagenEvento";
 
   const id = useSearchParams().get('id');
   const idUser = useSearchParams().get('idUser');

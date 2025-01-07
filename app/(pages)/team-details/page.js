@@ -53,7 +53,7 @@ export default function Home() {
   const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
 
-  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig + "/eventos/consultarImagenEvento";
+  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig + "/api/eventos/consultarImagenEvento";
 
   const [text, setText] = useState("https://example.com");
   const [dataArray, setDataArray] = useState([])

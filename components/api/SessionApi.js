@@ -1,8 +1,8 @@
 import initConfig from "../configs/initConfig";
 import axios from 'axios';
 
-const INICIAR_SESION_URL = initConfig.host + "/usuarios/obtenerLoginUsuario";
-const CREAR_USUARIO_URL = initConfig.host + "/usuarios/crearUsuario";
+const INICIAR_SESION_URL = initConfig.host + "/api/usuarios/obtenerLoginUsuario";
+const CREAR_USUARIO_URL = initConfig.host + "/api/usuarios/crearUsuario";
 
 export function iniciar_sesion(data) {
 

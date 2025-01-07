@@ -1,8 +1,8 @@
 import initConfig from "../configs/initConfig";
 import axios from 'axios';
 
-const CREAR_TICKETS_URL = initConfig.host + "/tickets/crearTickets";
-const OBTENER_TICKETS_URL = initConfig.host + "/tickets/obtenerTicketsPorUsuario"
+const CREAR_TICKETS_URL = initConfig.host + "/api/tickets/crearTickets";
+const OBTENER_TICKETS_URL = initConfig.host + "/api/tickets/obtenerTicketsPorUsuario"
 
 export function crear_tickets(data) {
     
