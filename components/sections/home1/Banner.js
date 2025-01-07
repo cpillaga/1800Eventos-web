@@ -28,10 +28,12 @@ export default function Banner({
   eventos,
   idUser,
   guardarTickets,
+  CONSULTAR_IMAGEN_EVENTOS_URL
 }) {
-
+  
   useEffect(() => {
     console.log("Banner: ", initConfig.host + eventos[0]?.image)
+    console.log("Banner 2: ", CONSULTAR_IMAGEN_EVENTOS_URL+'/'+eventos[0]?._id)
   }, [eventos])
 
 
@@ -68,7 +70,8 @@ export default function Banner({
                   className="main-slider__img"
                 >
                   <img
-                    src={initConfig?.host + (eventos[0]?.image || '')}
+                    src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+eventos[0]?._id}
+                    // src={initConfig?.host + (eventos[0]?.image || '')}
                     // alt={eventos[0]?.title}
                     
                   />

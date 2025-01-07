@@ -12,6 +12,8 @@ import MapDetails from "@/components/elements/MapDetails";
 
 export default function Home() {
 
+  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/eventos/consultarImagenEvento";
+
   const id = useSearchParams().get('id');
   const idUser = useSearchParams().get('idUser');
   const title = useSearchParams().get('title');
@@ -116,7 +118,7 @@ export default function Home() {
               }}
             >
               <img
-                src={initConfig.host + image}
+                src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+id}
                 alt=""
                 style={{
                   width: '100%',
@@ -580,6 +582,7 @@ export default function Home() {
             localidades={localidades}
             enSesion={enSesion}
             setEnSesion={setEnSesion} 
+            CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
           />
         </section>
       </Layout>

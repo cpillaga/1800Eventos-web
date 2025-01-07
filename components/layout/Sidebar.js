@@ -24,7 +24,8 @@ export default function Sidebar({
   localidades,
   flag = true,
   enSesion = false,
-  setEnSesion
+  setEnSesion,
+  CONSULTAR_IMAGEN_EVENTOS_URL
 }) {
 
   const router = useRouter();
@@ -112,7 +113,7 @@ export default function Sidebar({
                     {image !== undefined && (
 
                       <img
-                        src={initConfig + image}
+                        src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+id}
                         style={{
                           borderRadius: 10,
                           width: '100%',

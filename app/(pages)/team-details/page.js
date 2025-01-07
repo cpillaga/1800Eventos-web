@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
 
+  
+
   const [teamDetails, setTeamDetails] = useState(null);
   const [userData, setUserData] = useState(null);
 
@@ -50,6 +52,8 @@ export default function Home() {
   const localidadesString = teamDetails?.localidades;
   const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
+
+  const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig + "/eventos/consultarImagenEvento";
 
   const [text, setText] = useState("https://example.com");
   const [dataArray, setDataArray] = useState([])
@@ -145,14 +149,14 @@ export default function Home() {
                 borderTopLeftRadius: 10,
                 borderBottomLeftRadius: 10,
                 // boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)', 
-                color: '#202226'
+                color: '#202226',
               }}>
 
                 <div>
 
                   {image &&
                     <img
-                      src={initConfig + image}
+                      src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+id}
                       // alt={member.name}
                       style={{
                         borderTopLeftRadius: 10,

@@ -6,7 +6,8 @@ import initConfig from "../../configs/initConfig";
 
 export default function BuyTicket({
   eventos,
-  idUser
+  idUser,
+  CONSULTAR_IMAGEN_EVENTOS_URL
 }) {
   // State for dynamic content
   const [ticketContent, setTicketContent] = useState({
@@ -106,7 +107,11 @@ export default function BuyTicket({
                   data-wow-delay="300ms"
                 >
                   <div className="buy-ticket__img">
-                    <img src={initConfig.host + (eventos[eventos.length - 1]?.image || '')} alt="Ticket Image" />
+                    <img 
+                      // src={initConfig.host + (eventos[eventos.length - 1]?.image || '')} 
+                      src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+eventos[eventos.length - 1]._id}
+                      alt="Ticket Image" 
+                    />
                   </div>
                 </div>
               </div>

@@ -10,8 +10,11 @@ export default function LoginScreen() {
 
     const router = useRouter();
 
-    const teamDetailsData = localStorage.getItem('teamDetailsData');
-    const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
+    useEffect(() => {
+        const teamDetailsData = localStorage.getItem('teamDetailsData');
+        const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
+    }, [])
+    
 
     const [openRegister, setOpenRegister] = useState(false);
 

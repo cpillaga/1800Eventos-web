@@ -4,10 +4,13 @@ import Banner from "@/components/sections/home1/Banner"
 import SlidingText from "@/components/sections/home1/SlidingText"
 import BuyTicket from "@/components/sections/home1/BuyTicket"
 import BlogOne from "@/components/sections/home1/BlogOne"
-import { consultar_eventos } from '@/components/api/EventosApi'
+import { consultar_eventos, consultar_imagen_eventos } from '@/components/api/EventosApi'
 import { useState } from 'react'
+import initConfig from '@/components/configs/initConfig'
 
 function HomePage() {
+
+    const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/eventos/consultarImagenEvento";
 
     const [eventos, setEventos] = useState([])
     const [guardarTickets, setGuardarTickets] = useState(false)
@@ -20,7 +23,18 @@ function HomePage() {
             .then((res) => {
                 console.log("Eventos desde la API: ", res)
                 if (res && res.data) {
+
                     setEventos(res.data)
+
+                    // console.log("ID Imagen: ", res.data)
+                    // consultar_imagen_eventos(res.data._id)
+                    //     .then((img) => {
+                    //         console.log("Imagen: ", img)
+                    //     })
+                    //     .catch((err) => {
+
+                    //     })
+
                 }
                 else {
                     setEventos([])
@@ -57,6 +71,7 @@ function HomePage() {
                 eventos={eventos || []}
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
+                CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
             />
             <SlidingText
                 eventos={eventos || []}
@@ -67,11 +82,13 @@ function HomePage() {
                 eventos={eventos || []}
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
+                CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
             />
             <BuyTicket
                 eventos={eventos || []}
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
+                CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
             />
         </>
     )

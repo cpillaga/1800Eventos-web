@@ -104,12 +104,13 @@ const blogPosts = [
 
 export default function BlogOne({
   eventos,
-  idUser
+  idUser,
+  CONSULTAR_IMAGEN_EVENTOS_URL
 }) {
 
   useEffect(() => {
     console.log("En Blog: ", eventos)
-    console.log("Config: ", initConfig.host)
+    console.log("Config: ", CONSULTAR_IMAGEN_EVENTOS_URL)
   }, [eventos]) 
 
 
@@ -161,7 +162,8 @@ export default function BlogOne({
                     <div className="blog-one__img" style={{ boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.2)', color: '#202226' }}>
 
                       <img
-                        src={initConfig.host + (e?.image || '')}
+                        src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+e?._id}
+                        // src={initConfig.host + (e?.image || '')}
                         // alt={e?.title}
                       />
 
