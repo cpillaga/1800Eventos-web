@@ -20,11 +20,20 @@ export default function LoginScreen() {
 
     const router = useRouter();
 
+    const [parsedData, setParsedData] = useState({})
+    const [amount, setAmount] = useState(0);
+
     useEffect(() => {
         const teamDetailsData = localStorage.getItem('teamDetailsData');
         const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
+        setParsedData(teamDetailsDataParsedData)
     }, [])
 
+    useEffect(() => {
+        if (parsedData && parsedData.valorTotal) {
+            setAmount(parsedData.valorTotal);
+        }
+    }, [parsedData]);
 
     const [openRegister, setOpenRegister] = useState(false);
 
@@ -39,8 +48,6 @@ export default function LoginScreen() {
     ///////////////////////////////////////////////////////////////
     const [open, setOpen] = useState(false);
     const [clientSecret, setClientSecret] = useState('');
-    const [amount, setAmount] = useState(49.99)
-
 
     const handleOpenModalRegister = () => {
         setOpenRegister(!openRegister)
@@ -333,7 +340,7 @@ export default function LoginScreen() {
                     <CheckoutForm
                         open={open}
                         onClose={() => setOpen(false)}
-                        amount={49.99}
+                        amount={amount}
                     />
                 </Elements>
 
