@@ -6,6 +6,16 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import ModalRegister from "@/components/default/registro/ModalRegister";
 import { iniciar_sesion } from "@/components/api/SessionApi";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+// import { createPaymentIntent } from '@/components/api/StripeApi';
+import CheckoutForm from '../checkout/CheckoutForm';
+import convertToCents from '../helpers/convertToCents';
+// import handler from '@/app/api/StripeApi';
+// import CheckoutForm from './CheckoutForm';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 export default function LoginScreen() {
 
     const router = useRouter();
@@ -14,7 +24,7 @@ export default function LoginScreen() {
         const teamDetailsData = localStorage.getItem('teamDetailsData');
         const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
     }, [])
-    
+
 
     const [openRegister, setOpenRegister] = useState(false);
 
@@ -22,7 +32,15 @@ export default function LoginScreen() {
     const [passwordLogin, setPasswordLogin] = useState('');
     const [estadoSesion, setEstadoSesion] = useState(false);
 
+    ///////////////////////////////////////////////////////////////
     const [queryData, setQueryData] = useState(null);
+    const [loginSuccessful, setLoginSuccessful] = useState(false);
+
+    ///////////////////////////////////////////////////////////////
+    const [open, setOpen] = useState(false);
+    const [clientSecret, setClientSecret] = useState('');
+    const [amount, setAmount] = useState(49.99)
+
 
     const handleOpenModalRegister = () => {
         setOpenRegister(!openRegister)
@@ -31,7 +49,7 @@ export default function LoginScreen() {
     const handleLogin = (data) => {
 
         iniciar_sesion(data)
-            .then((res) => {
+            .then(async (res) => {
 
                 console.log("Data Sesion: ", res.data)
 
@@ -39,8 +57,8 @@ export default function LoginScreen() {
 
                     sessionStorage.setItem('userData', JSON.stringify(res.data));
                     const teamDetailsData = localStorage.getItem('teamDetailsData');
-                    
-                    if(teamDetailsData){
+
+                    if (teamDetailsData) {
 
                         const teamDetailsDataParsed = JSON.parse(teamDetailsData);
 
@@ -54,18 +72,20 @@ export default function LoginScreen() {
                             setQueryData(combinedData);
                             localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
 
-                            router.push('/team-details');
+                            setOpen(true)
+
+                            // router.push('/team-details');
 
                         }
-                        else{
+                        else {
                             console.log('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
                         }
 
                     }
-                    else{
+                    else {
                         setQueryData({});
                     }
-                    
+
                     // router.push('/team-details');
                 }
 
@@ -76,6 +96,49 @@ export default function LoginScreen() {
             .finally()
 
     }
+
+    // const handleLogin = async (data) => {
+    //     try {
+    //         const res = await iniciar_sesion(data);
+    //         console.log("Data Sesion: ", res.data);
+
+    //         if (res.data) {
+    //             sessionStorage.setItem('userData', JSON.stringify(res.data));
+    //             const teamDetailsData = localStorage.getItem('teamDetailsData');
+
+    //             if (teamDetailsData) {
+    //                 const teamDetailsDataParsed = JSON.parse(teamDetailsData);
+    //                 if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
+    //                     const combinedData = {
+    //                         ...teamDetailsDataParsed,
+    //                         idUser: res.data.id, // Replace the idUser property
+    //                     };
+    //                     setQueryData(combinedData);
+    //                     localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
+
+    //                     // Create a payment intent
+    //                     const { client_secret } = await createPaymentIntent(1000); // Example amount in cents
+    //                     setClientSecret(client_secret);
+
+    //                     // Navigate to team-details page with the query parameters
+    //                     router.push({
+    //                         pathname: '/team-details',
+    //                         query: combinedData,
+    //                     });
+    //                     setOpen(true); // Open the modal
+    //                 } else {
+    //                     console.error('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
+    //                 }
+    //             } else {
+    //                 setQueryData({});
+    //             }
+    //         } else {
+    //             console.error('Login failed: No data returned');
+    //         }
+    //     } catch (err) {
+    //         console.log("Error Sesion: ", err);
+    //     }
+    // };
 
     useEffect(() => {
         console.log("Activa?: ", estadoSesion)
@@ -256,6 +319,23 @@ export default function LoginScreen() {
                         setOpenRegister={setOpenRegister}
                     />
                 )}
+
+                <Elements
+                    stripe={stripePromise}
+                    options={
+                        {
+                            mode: "payment",
+                            amount: convertToCents(amount),
+                            currency: "usd"
+                        }
+                    }
+                >
+                    <CheckoutForm
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        amount={49.99}
+                    />
+                </Elements>
 
             </Box>
         </>
