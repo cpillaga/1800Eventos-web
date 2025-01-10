@@ -8,12 +8,13 @@ import Modal from '@mui/material/Modal';
 import { Box } from '@mui/material';
 import initConfig from '@/components/configs/initConfig';
 import { useRouter } from 'next/navigation';
+import { consultar_stripe } from '@/components/api/StripeApi';
 
 // import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 // import { useState } from 'react';
 // import { Box, Button } from '@mui/material';
 
-const CheckoutForm = ({ onClose, amount, open }) => {
+const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
 
   const router = useRouter();
 
@@ -26,19 +27,29 @@ const CheckoutForm = ({ onClose, amount, open }) => {
 
   useEffect(() => {
 
-    fetch("/api/create-payment-intent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          amount: convertToCents(amount)
-        })
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+    consultar_stripe({amount: amount})
+      .then((res) => {
+          // res.json()
+          console.log("Stripe: ", res)
+          setClientSecret(res.data.clientSecret)
+      })
+      .catch((err) => {
+        console.log("Error: ", err)
+      })
+
+    // fetch("/api/create-payment-intent",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       amount: convertToCents(amount)
+    //     })
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => setClientSecret(data.clientSecret));
 
   }, [amount]);
 
@@ -64,6 +75,7 @@ const CheckoutForm = ({ onClose, amount, open }) => {
       clientSecret,
       confirmParams: {
         return_url: 'http://localhost:3000'+'/team-details'
+        // return_url: 'https://certificadocacup.com'+'/team-details'
       }
     });
 
@@ -168,7 +180,7 @@ const CheckoutForm = ({ onClose, amount, open }) => {
             }}
           > 
             {/* Pay {amount} */}
-            {!loading ? 'Pay $ '+amount+' USD ': 'Loading...'}
+            {!loading ? 'Pay $ '+stringValor+' USD ': 'Loading...'}
           </button>
         </form>
       </Box>

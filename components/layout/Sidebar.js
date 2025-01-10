@@ -3,6 +3,7 @@ import Link from "next/link";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { DoNotDisturbOnTotalSilenceOutlined } from "@mui/icons-material";
 
 
 export default function Sidebar({
@@ -51,15 +52,12 @@ export default function Sidebar({
       image: image,
       availableTickets: availableTickets,
       cantidad: cantidad,
-      valorTotal: valorTotal,
+      valorTotal: total,
       initConfig: initConfig,
       etapas: JSON.stringify(etapas),
       localidades: JSON.stringify(localidades),
     };
-
-    console.log("Query Data: ", queryData)
-
-    
+  
     localStorage.setItem('teamDetailsData', JSON.stringify(queryData));
   
   };

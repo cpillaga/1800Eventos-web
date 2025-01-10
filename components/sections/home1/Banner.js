@@ -30,10 +30,10 @@ export default function Banner({
   guardarTickets,
   CONSULTAR_IMAGEN_EVENTOS_URL
 }) {
-  
+
   useEffect(() => {
     console.log("Banner: ", initConfig.host + eventos[0]?.image)
-    console.log("Banner 2: ", CONSULTAR_IMAGEN_EVENTOS_URL+'/'+eventos[0]?._id)
+    console.log("Banner 2: ", CONSULTAR_IMAGEN_EVENTOS_URL + '/' + eventos[0]?._id)
   }, [eventos])
 
 
@@ -44,36 +44,43 @@ export default function Banner({
       <section
         className="main-slider"
         style={{
-          marginTop: 30,
-          marginBottom: 30,
-          marginLeft: 20,
-          marginRight: 20,
+          margin: 10,
+          flexShrink: 0,
+          // marginTop: 30,
+          // marginBottom: 30,
+          // marginLeft: 20,
+          // marginRight: 20,
           borderRadius: 10,
-          boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)', 
+          boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
           color: '#202226',
-          backgroundColor: 'green'
+          backgroundColor: 'green',
+          // padding: 20
         }}
       >
-        <Swiper 
-          {...swiperOptions} 
+        <Swiper
+          {...swiperOptions}
           className="swiper-container thm-swiper__slider"
         >
           <div
             className="swiper-wrapper"
           >
-            <SwiperSlide 
+            <SwiperSlide
               className="swiper-slide"
             >
+
 
               {eventos.length > 0 && (
                 <div
                   className="main-slider__img"
+                  style={{
+                    flexWrap: 'initial'
+                  }}
                 >
                   <img
-                    src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+eventos[0]?._id}
-                    // src={initConfig?.host + (eventos[0]?.image || '')}
-                    // alt={eventos[0]?.title}
-                    
+                    src={CONSULTAR_IMAGEN_EVENTOS_URL + '/' + eventos[0]?._id}
+                  // src={initConfig?.host + (eventos[0]?.image || '')}
+                  // alt={eventos[0]?.title}
+
                   />
                 </div>
               )}
@@ -93,35 +100,53 @@ export default function Banner({
               <div className="main-slider__start-3">
                 <img src="assets/images/shapes/main-slider-star-3-orange.png" alt="" />
               </div> */}
-              
+
               <div
                 className="container"
-                style={{ marginLeft: 30 }}
+              // style={{ marginLeft: 30 }}
               >
 
                 {eventos.length > 0 && (
 
                   <>
 
-                    <div className="row" >
-                      <div className="col-xl-12">
-                        <div 
-                          className="main-slider__content" 
-                          style={{ 
+                    <div
+                      style={{
+                        width: '57%',
+                        flexShrink: 1
+                      }}
+                      // className="row" 
+                    >
+                      {/* <div
+                        // className="col-xl-12" 
+                        style={{
+                          backgroundColor: 'orange',
+                          padding: 20,
+                          flexDirection: 'row',
+                          display: 'flex',
+                          height: '100%'
+                        }}
+                      > */}
+
+                        <div
+                          // className="main-slider__content" 
+                          style={{
+                            // backgroundColor: 'red',
+                            flexShrink: 1,
                             justifyContent: 'center', 
                             alignItems: 'center', 
                             justifyItems:'center', 
                             alignContent: 'center', 
-                            width: '700px' 
+                            // width: '700px' 
                           }}
                         >
-                          <h2 className="main-slider__title" style={{ color: '#838383', textAlign: 'center' }}>
-                            EVENTO  <br/><span style={{ color: 'white' }}> DESTACADO </span>
+                          <h2 className="main-slider__title" style={{ color: '#838383', textAlign: 'center',  flexShrink: 1 }}>
+                            EVENTO  <br /><span style={{ color: 'white',  flexShrink: 1, }}> DESTACADO </span>
                           </h2>
-                          <p className="main-slider__sub-title" style={{ color: '#838383' }}>
+                          <p className="main-slider__sub-title" style={{ color: '#838383',  flexShrink: 1, }}>
                             {eventos[0]?.title}
                           </p>
-                          <p className="main-slider__text" style={{ color: '#838383' }}>
+                          <p className="main-slider__text" style={{ color: '#838383', flexShrink: 1, }}>
                             {eventos[0]?.description}
                             {/* As an AI language model, I don't have personal opinions or points of view.
                         However, I <br /> can tell you that design is a multifaceted field that encompasses various elements. */}
@@ -145,7 +170,7 @@ export default function Banner({
                             </li>
                           </ul>
                           <div className="main-slider__btn-box">
-                            <Link 
+                            <Link
                               href={{
                                 pathname: '/blog-details',
                                 query: {
@@ -157,17 +182,17 @@ export default function Banner({
                                   date: eventos[0]?.date,
                                   description: eventos[0]?.description,
                                   image: eventos[0]?.image,
-                                  availableTickets:eventos[0]?.availableTickets,
+                                  availableTickets: eventos[0]?.availableTickets,
                                   etapas: JSON.stringify(eventos[0]?.etapas),
                                   localidades: JSON.stringify(eventos[0]?.localidades),
                                   guardarTickets: guardarTickets
                                 },
                               }}
-                              className="main-slider__btn thm-btn" 
-                              style={{ 
-                                color: 'white', 
-                                backgroundColor: '#ef7c25', 
-                                borderRadius: 30 
+                              className="main-slider__btn thm-btn"
+                              style={{
+                                color: 'white',
+                                backgroundColor: '#ef7c25',
+                                borderRadius: 30
                               }}
                             >
                               Purchase Ticket
@@ -175,7 +200,8 @@ export default function Banner({
                             </Link>
                           </div>
                         </div>
-                      </div>
+
+                      {/* </div> */}
                     </div>
 
                   </>

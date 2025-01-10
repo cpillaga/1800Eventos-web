@@ -43,7 +43,7 @@ export default function Home() {
   const cantidadTotal = (newCounts) => {
 
     const total = newCounts.reduce((sum, count) => sum + count, 0);
-    setCantidad(total); 
+    setCantidad(total);
     // setSidebar(total > 0)
 
     const totalPrecio = newCounts.reduce(
@@ -51,7 +51,7 @@ export default function Home() {
       0
     );
     setValorTotal(totalPrecio);
-  
+
   };
 
   const increment = (index) => {

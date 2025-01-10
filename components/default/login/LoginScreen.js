@@ -21,7 +21,8 @@ export default function LoginScreen() {
     const router = useRouter();
 
     const [parsedData, setParsedData] = useState({})
-    const [amount, setAmount] = useState(0);
+    const [stringValor, setStringValor] = useState('')
+    const [amount, setAmount] = useState(1);
 
     useEffect(() => {
         const teamDetailsData = localStorage.getItem('teamDetailsData');
@@ -32,6 +33,8 @@ export default function LoginScreen() {
     useEffect(() => {
         if (parsedData && parsedData.valorTotal) {
             setAmount(parsedData.valorTotal);
+            setStringValor(parsedData.valorTotal.toString())
+            console.log("Valor Total: ", parsedData.valorTotal)
         }
     }, [parsedData]);
 
@@ -338,9 +341,10 @@ export default function LoginScreen() {
                     }
                 >
                     <CheckoutForm
+                        stringValor={stringValor}
                         open={open}
                         onClose={() => setOpen(false)}
-                        amount={amount}
+                        amount={convertToCents(amount)}
                     />
                 </Elements>
 

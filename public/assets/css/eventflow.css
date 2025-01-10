@@ -177,6 +177,8 @@ ul {
   }
 }
 
+
+
 ::-webkit-input-placeholder {
   color: inherit;
   opacity: 1;
@@ -12742,6 +12744,246 @@ input {
 
   .main-menu-two .main-menu__search {
       margin-left: 30px;
+  }
+
+
+  
+  /*********************************/
+
+  .section {
+    padding: 20px;
+  }
+  
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .imageWrapper {
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .imageOverlay {
+    position: relative;
+    top: -100px;
+    background-color: white;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 25px;
+  }
+  
+  .imageOverlayContent {
+    color: #838383;
+    text-align: left;
+  }
+  
+  .title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .infoRow {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .infoText {
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+  
+  .detailsContainer {
+    margin-top: 120px;
+    margin-left: 120px;
+  }
+  
+  .detailsWrapper {
+    color: #838383;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sectionTitle {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+  }
+  
+  .ticketRow {
+    background-color: #E5E7EB;
+    margin-top: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    color: black;
+  }
+  
+  .ticketPrice {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ticketInfo {
+    flex: 1;
+    padding-left: 60px;
+  }
+  
+  .ticketName {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .ticketDescription {
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 10px;
+  }
+  
+  .ticketControls {
+    display: flex;
+    width: 200px;
+    color: black;
+  }
+  
+  .ticketButton {
+    background-color: #EF7C25;
+    color: white;
+    border: none;
+    width: 70px;
+    height: 100px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .ticketCount {
+    width: 70px;
+    height: 100px;
+    font-size: 30px;
+    background-color: #EF7C25;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .description {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+    width: 100%;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .mapContainer {
+    padding: 10px;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .organizerContainer {
+    padding: 10px;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .organizerIcon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    font-size: 25px;
+    color: #555;
+    margin: 20px;
+  }
+  
+  .organizerInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+  }
+  
+  .organizerName {
+    font-size: 20px;
+    color: black;
+  }
+  
+  .organizerRole {
+    font-size: 16px;
+    color: #838383;
+  }
+  
+  @media (max-width: 768px) {
+    .detailsContainer {
+      margin-left: 0;
+    }
+  
+    .detailsWrapper {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    .ticketRow {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .ticketInfo {
+      padding-left: 0;
+      text-align: center;
+    }
+  
+    .ticketControls {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .ticketButton,
+    .ticketCount {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+  
+    .organizerContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .organizerInfo {
+      width: 100%;
+      text-align: center;
+    }
   }
 
 
