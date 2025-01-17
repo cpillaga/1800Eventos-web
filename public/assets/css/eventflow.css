@@ -763,6 +763,25 @@ ul {
   backface-visibility: hidden;
 }
 
+.sidebarprofile-widget-container {
+  background-color: #A2A5B1;
+  background-size: 200%;
+  /* background-image: 
+    linear-gradient(rgba(245, 245, 245, 0.685), rgba(245, 245, 245, 0.685)),
+    url('../images/blog/item1.png');  */
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  /* top: 150px; */
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all .3s ease-in .3s;
+  -o-transition: all .3s ease-in .3s;
+  transition: all .3s ease-in .3s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 .xs-sidebar-group.isActive .sidebar-widget-container {
   top: 0px;
   opacity: 1;
@@ -944,6 +963,9 @@ ul {
 
 .main-menu__cart-search-nav-sidebar-icon-and-btn-box {
   position: relative;
+  /* background-color: blue; */
+  margin-right: 30px;
+  gap: 40px; 
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -1791,8 +1813,11 @@ ul {
 
 .main-slider .swiper-slide {
   /* position: relative; */
-  background-color: white;
+  /* background-color: white; */
   height: 620px;
+  background-image: url('../images/backgrounds/1800-Background-Blog.png'); /* Replace with your image path */
+  background-repeat: repeat-x; /* Optional */
+  background-size: contain; /* Optional */
   /* background-color: red; */
   /* margin: 10; */
   /* background-color: var(--eventflow-white); */
@@ -3832,11 +3857,18 @@ ul {
   display: block;
   overflow: hidden;
   border-radius: 15px;
+  /* background-color: green; */
+  /* padding: 10px;
+  margin: 10px; */
+  width: 100%;     
+  height: 350px;    
   z-index: 3;
 }
 
 .blog-one__img img {
   width: 100%;
+  height: 100%;         
+  object-fit: cover;    
   transform: scale3d(1, 1, 1);
   transition: transform 1s ease-in-out;
 }
@@ -10195,8 +10227,107 @@ ul {
   padding: 0;
 }
 
+/*--------------------------------------------------------------
+# ProfileSideBar
+--------------------------------------------------------------*/
 
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 280px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #fff;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
 
+/* Sidebar visible */
+.sidebar.open {
+  left: 0;
+}
+
+/* Header del Sidebar */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #ffcc00;
+  border-radius: 50%;
+}
+
+/* Título del menú */
+.menu-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
+}
+
+.menu-profile-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  /* border-bottom: 1px solid #838383; */
+  padding-bottom: 5px;
+}
+
+/* Botones del menú */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 8px;
+  color: #838383;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background: linear-gradient(90deg, #EF7C25 40%, rgb(255, 187, 0) 90%);
+  color: white;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.icon-profile {
+  font-size: 18px;
+  color: white
+}
 
 /*--------------------------------------------------------------
 # Coming Soon Page
@@ -10924,32 +11055,6 @@ ul {
       padding-left: 0;
       margin-right: 0;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -12615,6 +12720,23 @@ ul {
   height: 43px;
 }
 
+.input-container-profile {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
+  color: black;
+  width: 100%;
+  height: 40px;  
+  border-radius: 5px;
+}
+
+.input-container-profile::placeholder{
+  color: #838383;
+  font-size: 14px;
+}
+
 .input-container-register::placeholder{
   color: #838383
 }
@@ -12634,6 +12756,10 @@ ul {
   background-repeat: no-repeat; /* Optional */
   background-size: cover; /* Optional */
 }
+
+/* .banner-container {
+
+} */
 
 .check-terms-text {
   margin-top: 2px;

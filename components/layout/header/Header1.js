@@ -3,7 +3,12 @@ import { useRouter } from 'next/navigation';
 import Menu from "../Menu"
 import MobileMenu from "../MobileMenu"
 import { crear_tickets } from "@/components/api/TicketsApi";
-export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSidebar, handlePopup, handleSidebar, estadoCompra, ticket = {}, handleCreateTickets, dataArray }) {
+export default function Header1({ 
+  scroll, isMobileMenu, handleMobileMenu, isSidebar, 
+  handlePopup, handleSidebar, estadoCompra, 
+  ticket = {}, handleCreateTickets, dataArray, 
+  isSidebarProfile, handleSidebarProfile
+}) {
 
   const router = useRouter();
   const handleSendTickets = () => {
@@ -49,15 +54,27 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
             </div>
             <div className="main-menu__right">
               <div className="main-menu__cart-search-nav-sidebar-icon-and-btn-box">
-                <a href="#" className="main-menu__cart icon-cart"></a>
-                <a href="#" className="main-menu__search search-toggler" onClick={handlePopup}>
+
+              <Link href="/main"><p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Menu</p></Link>
+
+              <Link href="/tickets"><p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}> Mis Tickets</p></Link>
+                
+              <Link href="#" onClick={handleSidebarProfile}> <p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Perfil</p></Link>
+
+             
+
+                {/* <a href="#" className="main-menu__cart icon-cart"></a> */}
+
+                {/* <a href="#" className="main-menu__search search-toggler" onClick={handlePopup}>
                   <span className="icon-loupe"></span>
-                </a>
-                <div className="main-menu__nav-sidebar-icon" onClick={handleSidebar}>
+                </a> */}
+                
+                {/* <div className="main-menu__nav-sidebar-icon" onClick={handleSidebar}>
                   <div className="navSidebar-button">
                     <span className="icon-menu1"></span>
                   </div>
-                </div>
+                </div> */}
+
               </div>
 
               {
@@ -91,8 +108,8 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
                   <>
                     <div className="main-menu__btn-box">
                       <Link href="/" className="main-menu__btn thm-btn">
-                        Ir al Menu
-                        <span className="icon-arrow-right"></span>
+                        Call Center
+                        <span className="icon-call"></span>
                       </Link>
                     </div>
                   </>
@@ -127,7 +144,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
                 <div className="mobile-nav__toggler" onClick={handleMobileMenu}>
                   <i className="fa fa-bars" />
                 </div>
-                <Menu />
+                {/* <Menu /> */}
               </div>
               <div className="main-menu__right">
                 <div className="main-menu__cart-search-nav-sidebar-icon-and-btn-box">

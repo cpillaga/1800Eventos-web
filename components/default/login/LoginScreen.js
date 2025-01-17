@@ -154,17 +154,6 @@ export default function LoginScreen() {
         console.log("Activa?: ", estadoSesion)
     }, [estadoSesion])
 
-    // useEffect(() => {
-    //     const storedData = sessionStorage.getItem('id');
-    //     if (storedData) {
-    //         const parsedData = JSON.parse(storedData);
-    //         setUserData(parsedData);
-    //         setIdUser(parsedData.id || '');
-    //     }
-    // }, [eventos]);
-
-
-
     return (
         <>
             <Box

@@ -158,8 +158,16 @@ export default function BlogOne({
                   className={`col-xl-4 col-lg-4 col-md-6 wow fadeInLeft`}
                   data-wow-delay={'fadeInLeft'}
                 >
-                  <div className="blog-one__single">
-                    <div className="blog-one__img" style={{ boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.2)', color: '#202226' }}>
+                  <div 
+                    className="blog-one__single"
+                  >
+                    <div 
+                      className="blog-one__img" 
+                      style={{ 
+                        boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.2)', 
+                        color: '#202226' 
+                      }}
+                    >
 
                       <img
                         src={CONSULTAR_IMAGEN_EVENTOS_URL+'/'+e?._id}

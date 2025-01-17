@@ -485,7 +485,7 @@ export default function Home() {
                   }}
                 >
 
-                  <div className="icon">
+                  <div className="icon-profile">
                     <span className="icon-user" style={{ fontSize: 50 }}></span>
                   </div>
 

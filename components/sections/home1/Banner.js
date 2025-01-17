@@ -44,17 +44,19 @@ export default function Banner({
       <section
         className="main-slider"
         style={{
-          margin: 10,
+          //margin: 10,
           flexShrink: 0,
           // marginTop: 30,
           // marginBottom: 30,
           // marginLeft: 20,
           // marginRight: 20,
-          borderRadius: 10,
-          boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
+          // borderRadius: 10,
+          // boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
           color: '#202226',
-          backgroundColor: 'green',
-          // padding: 20
+          //sbackgroundColor: 'green',
+          // padding: 20,
+          // margin: 20,
+          // backgroundImage: 'url(assets/images/backgrounds/1800-Background-Blog.png)'
         }}
       >
         <Swiper
@@ -102,7 +104,7 @@ export default function Banner({
               </div> */}
 
               <div
-                className="container"
+                // className="container"
               // style={{ marginLeft: 30 }}
               >
 
@@ -112,13 +114,24 @@ export default function Banner({
 
                     <div
                       style={{
-                        width: '57%',
-                        flexShrink: 1
+                        position: 'absolute',
+                        bottom: '10%',
+                        left: '10%',
+                        width: '40%',
+                        height: '80%',
+                        flexShrink: 1,
+                        backgroundColor: 'white',
+                        borderRadius: 10,
+                        boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
+                        // height: '400px',
+                        // backgroundColor: 'red',
+                        justifyContent: 'center',
+                        alignContent: 'center'
                       }}
-                      // className="row" 
+                      // className="row"
                     >
                       {/* <div
-                        // className="col-xl-12" 
+                        // className="col-xl-12"
                         style={{
                           backgroundColor: 'orange',
                           padding: 20,
@@ -129,28 +142,36 @@ export default function Banner({
                       > */}
 
                         <div
-                          // className="main-slider__content" 
+                          // className="main-slider__content"
                           style={{
                             // backgroundColor: 'red',
                             flexShrink: 1,
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            justifyItems:'center', 
-                            alignContent: 'center', 
-                            // width: '700px' 
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            justifyItems:'center',
+                            alignContent: 'center',
+                            // width: '700px'
                           }}
                         >
                           <h2 className="main-slider__title" style={{ color: '#838383', textAlign: 'center',  flexShrink: 1 }}>
                             EVENTO  <br /><span style={{ color: 'white',  flexShrink: 1, }}> DESTACADO </span>
                           </h2>
+
+                          {/* <p className="main-slider__sub-title" style={{ color: '#838383',  flexShrink: 1, }}>
+                            <span style={{ color: 'white',  flexShrink: 1, }}> {eventos[0]?.title} </span>
+                          </p>
+                          <p className="main-slider__text" style={{ color: '#838383', flexShrink: 1, }}>
+                            <span style={{ color: 'white',  flexShrink: 1, }}> {eventos[0]?.description} </span>
+                          </p> */}
+
                           <p className="main-slider__sub-title" style={{ color: '#838383',  flexShrink: 1, }}>
                             {eventos[0]?.title}
                           </p>
+
                           <p className="main-slider__text" style={{ color: '#838383', flexShrink: 1, }}>
                             {eventos[0]?.description}
-                            {/* As an AI language model, I don't have personal opinions or points of view.
-                        However, I <br /> can tell you that design is a multifaceted field that encompasses various elements. */}
                           </p>
+
                           <ul className="list-unstyled main-slider__address">
                             <li>
                               <div className="icon">
@@ -239,7 +260,7 @@ export default function Banner({
                           Discover a World <br /> <span>of Celebration</span>
                         </h2>
                         <p className="main-slider__text">
-                          As an AI language model, I don't have personal opinions or points of view. 
+                          As an AI language model, I don't have personal opinions or points of view.
                           However, I <br /> can tell you that design is a multifaceted field that encompasses various elements.
                         </p>
                         <ul className="list-unstyled main-slider__address">

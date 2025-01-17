@@ -6,7 +6,10 @@ export default function Menu() {
   return (
     <ul className="main-menu__list">
       <li className="dropdown">
-        <Link href="/main"><p style={{ color: 'gray'}}>Home</p></Link>
+        
+        {/************************ OPCION: HOME ****************************/}
+        {/* <Link href="/main"><p style={{ color: 'gray'}}>Home</p></Link> */}
+
         {/* <ul>
           <li><Link href="/">Home One</Link></li>
           <li><Link href="/index-2">Home Two</Link></li>
@@ -29,9 +32,9 @@ export default function Menu() {
           </li>
         </ul> */}
       </li>
-      <li className="dropdown">
+      {/* <li className="dropdown">
         <Link href="/tickets"><p style={{ color: 'gray'}}> Mis Tickets</p></Link>
-        {/* <ul>
+        <ul>
           <li><Link href="/about">About Us</Link></li>
           <li><Link href="/team">Team</Link></li>
           <li><Link href="/team-details">Team Details</Link></li>
@@ -41,19 +44,21 @@ export default function Menu() {
           <li><Link href="/gallery-details">Gallery Details</Link></li>
           <li><Link href="/faq">Faq</Link></li>
           <li><Link href="/404">404 Error</Link></li>
-        </ul> */}
-      </li>
-      <li className="dropdown">
+        </ul>
+      </li> */}
+
+      {/* <li className="dropdown">
         <Link href="#"> <p style={{ color: 'gray'}}>Perfil</p></Link>
-        {/* <ul>
+        <ul>
           <li><Link href="/services">Services</Link></li>
           <li><Link href="/event-prodigy">Event Prodigy</Link></li>
           <li><Link href="/stellar-events-co">Stellar Events Co</Link></li>
           <li><Link href="/elite-event-management">Elite Event Management</Link></li>
           <li><Link href="/infinite-occasions">Infinite Occasions</Link></li>
           <li><Link href="/dream-event-planners">Dream Event Planners</Link></li>
-        </ul> */}
-      </li>
+        </ul>
+      </li> */}
+
       {/* <li className="dropdown">
         <Link href="#"><p style={{ color: 'gray'}}>Event</p></Link>
         <ul>

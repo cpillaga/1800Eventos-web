@@ -14,6 +14,7 @@ import Header4 from "./header/Header4"
 import Header5 from "./header/Header5"
 import Header6 from "./header/Header6"
 import Header7 from "./header/Header7"
+import ProfileSideBar from "./ProfileSideBar"
 
 export default function Layout({ 
     headerStyle, 
@@ -43,6 +44,10 @@ export default function Layout({
     const [isSidebar, setSidebar] = useState(false)
     const handleSidebar = () => setSidebar(!isSidebar)
 
+     // Sidebar
+     const [isSidebarProfile, setSidebarProfile] = useState(false)
+     const handleSidebarProfile = () => setSidebarProfile(!isSidebarProfile)
+ 
     // useEffect(() => {
     //     const WOW = require('wowjs')
     //     window.wow = new WOW.WOW({
@@ -69,7 +74,20 @@ export default function Layout({
                 }}
             >
 
-                <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} estadoCompra={estadoCompra} ticket={ticket || {}} handleCreateTickets={handleCreateTickets} dataArray={dataArray || []}/>
+                <Header1 
+                    scroll={scroll} 
+                    isMobileMenu={isMobileMenu} 
+                    handleMobileMenu={handleMobileMenu} 
+                    handlePopup={handlePopup} 
+                    isSidebar={isSidebar} 
+                    handleSidebar={handleSidebar} 
+                    estadoCompra={estadoCompra} 
+                    ticket={ticket || {}} 
+                    handleCreateTickets={handleCreateTickets} 
+                    dataArray={dataArray || []}
+                    isSidebarProfile={isSidebarProfile}
+                    handleSidebarProfile={handleSidebarProfile}
+                />
 
                 {/* {!headerStyle && <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} />}
                 {headerStyle == 1 ? <Header1 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} /> : null}
@@ -80,11 +98,10 @@ export default function Layout({
                 {headerStyle == 6 ? <Header6 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} /> : null}
                 {headerStyle == 7 ? <Header7 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} /> : null}
                  */}
-                
-
 
                 <Sidebar isSidebar={isSidebar} handleSidebar={handleSidebar} />
-                <SearchPopup isPopup={isPopup} handlePopup={handlePopup} />
+                <ProfileSideBar isSidebarProfile={isSidebarProfile} handleSidebarProfile={handleSidebarProfile} />
+                {/* <SearchPopup isPopup={isPopup} handlePopup={handlePopup} /> */}
 {/* 
                 {breadcrumbTitle && <Breadcrumb breadcrumbTitle={breadcrumbTitle} />} */}
 
