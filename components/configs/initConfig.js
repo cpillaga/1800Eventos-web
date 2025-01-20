@@ -2,11 +2,13 @@ const ambiente = 'produccion';
 const urlAmbiente = {
     local:
     {
-        host: 'http://192.168.1.18:3005'
+        // host: 'http://192.168.1.18:3002'
+        host: 'http://localhost:3002'
     },
     produccion:
     {
-        host: 'https://certificadocacup.com'
+        host: 'http://localhost:3002'
+        // host: 'https://certificadocacup.com'
     }
 };
 
