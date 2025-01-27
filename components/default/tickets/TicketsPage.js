@@ -25,7 +25,7 @@ function TicketsPage() {
 
         if (idConsulta) {
 
-            obtener_tickets({ userId: idConsulta })
+            obtener_tickets({ user: idConsulta })
                 .then((res) => {
                     console.log("Tickets Obtenidos: ", res);
                     if (res.data) {
@@ -39,11 +39,9 @@ function TicketsPage() {
     }, [idConsulta]);
 
     const generateUniqueValue = (idTicket, idEvento) => {
-
         const timestamp = Date.now();
         const randomValue = Math.floor(Math.random() * 100000);
         return `${timestamp}-${randomValue}`;
-
     }
 
     return (
@@ -206,7 +204,7 @@ function TicketsPage() {
                                     fontWeight: 800
                                 }}
                             >
-                                {t.eventId.title}
+                                {t.etapa.event.title}
                             </p>
                             <img src="/assets/images/shapes/Banner1800graynot.png" alt="" width={150} height={50} />
 
@@ -230,8 +228,8 @@ function TicketsPage() {
                             }}
                         >
 
-                            <p style={{ color: '#838383', fontSize: 18, fontWeight: 600 }}> {t.eventId.date} </p>
-                            <p style={{ color: '#838383', fontSize: 16 }}> {t.eventId.location}</p>
+                            <p style={{ color: '#838383', fontSize: 18, fontWeight: 600 }}> {t.etapa.event.date} </p>
+                            <p style={{ color: '#838383', fontSize: 16 }}> {t.etapa.event.location}</p>
 
                         </div>
 
@@ -250,7 +248,7 @@ function TicketsPage() {
                             }}
                         >
 
-                            <p style={{ color: '#838383', fontSize: 16, fontWeight: 600 }}> {generateUniqueValue(t._id, t.eventId._id)} </p>
+                            <p style={{ color: '#838383', fontSize: 16, fontWeight: 600 }}> {generateUniqueValue(t._id, t.etapa.event._id)} </p>
 
                             <Typography
                                 marginLeft={1}

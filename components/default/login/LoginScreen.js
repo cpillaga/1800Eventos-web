@@ -13,8 +13,10 @@ import CheckoutForm from '../checkout/CheckoutForm';
 import convertToCents from '../helpers/convertToCents';
 // import handler from '@/app/api/StripeApi';
 // import CheckoutForm from './CheckoutForm';
+import axios from 'axios';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function LoginScreen() {
 
@@ -56,55 +58,40 @@ export default function LoginScreen() {
         setOpenRegister(!openRegister)
     }
 
-    const handleLogin = (data) => {
+    const handleLogin = async (data) => {
+        try {
+            console.log(data);
+            const res = await iniciar_sesion(data);
+            console.log("Data Sesion: ", res.data);
 
-        iniciar_sesion(data)
-            .then(async (res) => {
+            if (res.data) {
+                sessionStorage.setItem('userData', JSON.stringify(res.data.usuario));
+                sessionStorage.setItem('token', res.data.token);
+                // const teamDetailsData = localStorage.getItem('teamDetailsData');
+                // console.log('sasas ',teamDetailsData);
+                // if (teamDetailsData) {
+                    // const teamDetailsDataParsed = JSON.parse(teamDetailsData);
 
-                console.log("Data Sesion: ", res.data)
+                    // if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
+                    //     const combinedData = {
+                    //         ...teamDetailsDataParsed,
+                    //         idUser: res.data.id
+                    //     };
 
-                if (res.data) {
-
-                    sessionStorage.setItem('userData', JSON.stringify(res.data));
-                    const teamDetailsData = localStorage.getItem('teamDetailsData');
-
-                    if (teamDetailsData) {
-
-                        const teamDetailsDataParsed = JSON.parse(teamDetailsData);
-
-                        if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
-
-                            const combinedData = {
-                                ...teamDetailsDataParsed,
-                                idUser: res.data.id
-                            };
-
-                            setQueryData(combinedData);
-                            localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
-
-                            setOpen(true)
-
-                            // router.push('/team-details');
-
-                        }
-                        else {
-                            console.log('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
-                        }
-
-                    }
-                    else {
-                        setQueryData({});
-                    }
-
-                    // router.push('/team-details');
-                }
-
-            })
-            .catch((err) => {
-                console.log("Error Sesion: ", err)
-            })
-            .finally()
-
+                        // setQueryData(combinedData);
+                        // localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
+                        setEstadoSesion(true);
+                        router.push('/main');
+                    // } else {
+                    //     console.log('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
+                    // }
+                // } else {
+                //     setQueryData({});
+                // }
+            }
+        } catch (err) {
+            console.log("Error Sesion: ", err);
+        }
     }
 
     // const handleLogin = async (data) => {
@@ -319,7 +306,7 @@ export default function LoginScreen() {
                     />
                 )}
 
-                <Elements
+                {/* <Elements
                     stripe={stripePromise}
                     options={
                         {
@@ -329,13 +316,14 @@ export default function LoginScreen() {
                         }
                     }
                 >
+
                     <CheckoutForm
                         stringValor={stringValor}
                         open={open}
                         onClose={() => setOpen(false)}
                         amount={convertToCents(amount)}
                     />
-                </Elements>
+                </Elements> */}
 
             </Box>
         </>

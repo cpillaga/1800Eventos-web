@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import Menu from "../Menu"
 import MobileMenu from "../MobileMenu"
 import { crear_tickets } from "@/components/api/TicketsApi";
+
 export default function Header1({ 
   scroll, isMobileMenu, handleMobileMenu, isSidebar, 
   handlePopup, handleSidebar, estadoCompra, 

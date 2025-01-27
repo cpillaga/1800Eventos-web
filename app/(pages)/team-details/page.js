@@ -65,13 +65,13 @@ export default function Home() {
 
     for (let i = 0; i < cant; i++) {
       newDataArray.push({
-        eventId: id,
-        userId: idUser,
+        event: id,
+        user: idUser,
         isValid: true,
         purchaseDate: date,
         paymentStatus: "PENDING",
         stageId: etapas[0]._id,
-        localidadId: localidades[0].id,
+        // localidad: localidades[0].id,
         isTransferred: false,
         qrId: `${id}-${i + 1}`,
         qrCode: `https://example.com/ticket/${id}-${i + 1}`,

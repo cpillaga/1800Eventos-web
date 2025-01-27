@@ -7,6 +7,8 @@ import BlogOne from "@/components/sections/home1/BlogOne"
 import { consultar_eventos, consultar_imagen_eventos } from '@/components/api/EventosApi'
 import { useState } from 'react'
 import initConfig from '@/components/configs/initConfig'
+import { consultar_localidad } from '@/components/api/LocalidadApi'
+import { consultar_etapa } from '@/components/api/EtapaApi'
 
 function HomePage() {
 
@@ -14,64 +16,84 @@ function HomePage() {
 
     const [eventos, setEventos] = useState([])
     const [guardarTickets, setGuardarTickets] = useState(false)
-    const [userData, setUserData] = useState({})
+    const [localizaciones, setLocalizaciones] = useState([])
+    const [etapas, setEtapas] = useState([])
 
     const [idUser, setIdUser] = useState('')
 
     useEffect(() => {
-        consultar_eventos()
-            .then((res) => {
-                console.log("Eventos desde la API: ", res)
+        const fetchEventos = async () => {
+            try {
+                const res = await consultar_eventos();
+                console.log("Eventos desde la API: ", res);
                 if (res && res.data) {
-
-                    setEventos(res.data)
-
-                    // console.log("ID Imagen: ", res.data)
-                    // consultar_imagen_eventos(res.data._id)
-                    //     .then((img) => {
-                    //         console.log("Imagen: ", img)
-                    //     })
-                    //     .catch((err) => {
-
-                    //     })
-
+                    setEventos(res.data);
+                } else {
+                    setEventos([]);
                 }
-                else {
-                    setEventos([])
-                }
+            } catch (err) {
+                console.log("Error desde la API: ", err);
+            }
+        };
 
-
-            })
-            .catch((err) => {
-                console.log("Error desde la API: ", err)
-            })
-    }, [])
+        fetchEventos();
+    }, []);
 
     useEffect(() => {
-        const storedData = sessionStorage.getItem('userData');
-        if (storedData) {
-            const parsedData = JSON.parse(storedData);
-            setUserData(parsedData);
-            setIdUser(parsedData.id || '');
-        }
+        const fetchUserData = async () => {
+            const storedData = sessionStorage.getItem('userData');
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
+                setIdUser(parsedData.id || '');
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    useEffect(() => {
+        const fetchLocalizacion = async () => {
+            if (eventos.length > 0) {
+                const idEvento = eventos[0]._id;
+                try {
+                    const res = await consultar_localidad(idEvento);
+                    setLocalizaciones(res);
+                } catch (err) {
+                    console.error("Error al consultar la localización:", err);
+                }
+            }
+        };
+
+        fetchLocalizacion();
+    }, [eventos]);
+
+    useEffect(() => {
+        const fetchEtapa = async () => {
+            if (eventos.length > 0) {
+                const idEvento = eventos[0]._id;
+                try {
+                    const res = await consultar_etapa(idEvento);
+                    setEtapas(res);
+                    console.log(res);
+                } catch (err) {
+                    console.error("Error al consultar la etapa:", err);
+                }
+            }
+        };
+
+        fetchEtapa();
     }, [eventos]);
 
 
-
-    // useEffect(() => {
-    //     console.log("Lista Eventos: ", eventos)
-    //     console.log("User Data: ", idUser)
-    // }, [eventos])
-
-
     return (
-
         <>
             <Banner
                 eventos={eventos || []}
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
                 CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
+                etapas={etapas || []}
+                localizaciones={localizaciones.data||[]} 
             />
             <SlidingText
                 eventos={eventos || []}
@@ -83,12 +105,16 @@ function HomePage() {
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
                 CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
+                etapas={etapas || []}
+                localizaciones={localizaciones.data||[]} 
             />
             <BuyTicket
                 eventos={eventos || []}
                 idUser={idUser || ''}
                 guardarTickets={guardarTickets}
                 CONSULTAR_IMAGEN_EVENTOS_URL={CONSULTAR_IMAGEN_EVENTOS_URL}
+                etapas={etapas || []}
+                localizaciones={localizaciones.data||[]} 
             />
         </>
     )

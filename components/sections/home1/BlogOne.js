@@ -105,12 +105,16 @@ const blogPosts = [
 export default function BlogOne({
   eventos,
   idUser,
-  CONSULTAR_IMAGEN_EVENTOS_URL
+  CONSULTAR_IMAGEN_EVENTOS_URL,
+  etapas,
+  localizaciones: localidades,
 }) {
 
   useEffect(() => {
     console.log("En Blog: ", eventos)
     console.log("Config: ", CONSULTAR_IMAGEN_EVENTOS_URL)
+    console.log(  etapas);
+    console.log(  localidades);
   }, [eventos]) 
 
 
@@ -258,8 +262,10 @@ export default function BlogOne({
                               description: e?.description,
                               image: e?.image,
                               availableTickets: e?.availableTickets,
-                              etapas: JSON.stringify(e?.etapas),
-                              localidades: JSON.stringify(e?.localidades)
+                              etapas: JSON.stringify(etapas),
+                              // etapas: 'JSON.stringify(eventos[0]?.etapas)!!!!!!',
+                              // localidades: localizaciones,
+                              localidades: JSON.stringify(localidades),
                             },
                           }}
                         >
@@ -280,8 +286,9 @@ export default function BlogOne({
                               description: e?.description,
                               image: e?.image,
                               availableTickets: e?.availableTickets,
-                              etapas: JSON.stringify(e?.etapas),
-                              localidades: JSON.stringify(e?.localidades)
+                              etapas: JSON.stringify(etapas),
+                              // etapas: 'JSON.stringify(eventos[0]?.etapas)!!!!!!',
+                              localidades: JSON.stringify(localidades),
                             },
                           }}
                           className="blog-one__btn thm-btn-read-blog">

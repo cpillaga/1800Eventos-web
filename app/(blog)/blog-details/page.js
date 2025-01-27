@@ -26,6 +26,9 @@ export default function Home() {
 
   const etapasString = useSearchParams().get('etapas');
   const localidadesString = useSearchParams().get('localidades');
+  
+    console.log("localidadesString:", localidadesString);
+    console.log("etapasString:",  etapasString);
   const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
 

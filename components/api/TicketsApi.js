@@ -20,7 +20,7 @@ export function crear_tickets(data) {
 }
 
 export function obtener_tickets(data) {
-    
+    data  = { user:'678e811f804468eed732cfc4' };//borrar solo prueba
     return axios.post(
         
         `${OBTENER_TICKETS_URL}`, 

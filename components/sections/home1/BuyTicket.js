@@ -7,7 +7,9 @@ import initConfig from "../../configs/initConfig";
 export default function BuyTicket({
   eventos,
   idUser,
-  CONSULTAR_IMAGEN_EVENTOS_URL
+  CONSULTAR_IMAGEN_EVENTOS_URL,
+  etapas,
+  localizaciones,
 }) {
   // State for dynamic content
   const [ticketContent, setTicketContent] = useState({
@@ -88,8 +90,8 @@ export default function BuyTicket({
                           description: eventos[eventos.length - 1]?.description,
                           image: eventos[eventos.length - 1]?.image,
                           availableTickets: eventos[eventos.length - 1]?.availableTickets,
-                          etapas: JSON.stringify(eventos[eventos.length - 1]?.etapas),
-                          localidades: JSON.stringify(eventos[eventos.length - 1]?.localidades)
+                          etapas: JSON.stringify(etapas),
+                          localidades: JSON.stringify(localizaciones),
                         },
                       }}
                       className={`thm-btn`}

@@ -23,40 +23,30 @@ const swiperOptions = {
     delay: 8000
   }
 }
-
 export default function Banner({
   eventos,
   idUser,
   guardarTickets,
-  CONSULTAR_IMAGEN_EVENTOS_URL
+  CONSULTAR_IMAGEN_EVENTOS_URL,
+  localizaciones,
+  etapas
 }) {
 
   useEffect(() => {
     console.log("Banner: ", initConfig.host + eventos[0]?.image)
     console.log("Banner 2: ", CONSULTAR_IMAGEN_EVENTOS_URL + '/' + eventos[0]?._id)
+    console.log(localizaciones);
+    console.log(etapas);
   }, [eventos])
 
 
   return (
-
     <>
-      {/* banner-one */}
       <section
         className="main-slider"
         style={{
-          //margin: 10,
           flexShrink: 0,
-          // marginTop: 30,
-          // marginBottom: 30,
-          // marginLeft: 20,
-          // marginRight: 20,
-          // borderRadius: 10,
-          // boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
           color: '#202226',
-          //sbackgroundColor: 'green',
-          // padding: 20,
-          // margin: 20,
-          // backgroundImage: 'url(assets/images/backgrounds/1800-Background-Blog.png)'
         }}
       >
         <Swiper
@@ -69,8 +59,6 @@ export default function Banner({
             <SwiperSlide
               className="swiper-slide"
             >
-
-
               {eventos.length > 0 && (
                 <div
                   className="main-slider__img"
@@ -86,32 +74,13 @@ export default function Banner({
                   />
                 </div>
               )}
-
-              {/* <div className="main-slider__shpae-1">
-                <img src="assets/images/shapes/main-slider-shape-1-orange.png" alt="" />
-              </div>
-              <div className="main-slider__shpae-2">
-                <img src="assets/images/shapes/main-slider-shape-2.gray.png" alt="" />
-              </div>
-              <div className="main-slider__start-1">
-                <img src="assets/images/shapes/main-slider-star-1-gray.png" alt="" />
-              </div>
-              <div className="main-slider__start-2 zoominout">
-                <img src="assets/images/shapes/main-slider-star-2.png" alt="" />
-              </div>
-              <div className="main-slider__start-3">
-                <img src="assets/images/shapes/main-slider-star-3-orange.png" alt="" />
-              </div> */}
-
               <div
                 // className="container"
               // style={{ marginLeft: 30 }}
               >
 
                 {eventos.length > 0 && (
-
                   <>
-
                     <div
                       style={{
                         position: 'absolute',
@@ -123,46 +92,24 @@ export default function Banner({
                         backgroundColor: 'white',
                         borderRadius: 10,
                         boxShadow: '0px 4px 4px 3px rgba(0, 0, 0, 0.3)',
-                        // height: '400px',
-                        // backgroundColor: 'red',
                         justifyContent: 'center',
                         alignContent: 'center'
                       }}
                       // className="row"
                     >
-                      {/* <div
-                        // className="col-xl-12"
-                        style={{
-                          backgroundColor: 'orange',
-                          padding: 20,
-                          flexDirection: 'row',
-                          display: 'flex',
-                          height: '100%'
-                        }}
-                      > */}
-
                         <div
-                          // className="main-slider__content"
+                          
                           style={{
-                            // backgroundColor: 'red',
                             flexShrink: 1,
                             justifyContent: 'center',
                             alignItems: 'center',
                             justifyItems:'center',
                             alignContent: 'center',
-                            // width: '700px'
                           }}
                         >
                           <h2 className="main-slider__title" style={{ color: '#838383', textAlign: 'center',  flexShrink: 1 }}>
                             EVENTO  <br /><span style={{ color: 'white',  flexShrink: 1, }}> DESTACADO </span>
                           </h2>
-
-                          {/* <p className="main-slider__sub-title" style={{ color: '#838383',  flexShrink: 1, }}>
-                            <span style={{ color: 'white',  flexShrink: 1, }}> {eventos[0]?.title} </span>
-                          </p>
-                          <p className="main-slider__text" style={{ color: '#838383', flexShrink: 1, }}>
-                            <span style={{ color: 'white',  flexShrink: 1, }}> {eventos[0]?.description} </span>
-                          </p> */}
 
                           <p className="main-slider__sub-title" style={{ color: '#838383',  flexShrink: 1, }}>
                             {eventos[0]?.title}
@@ -204,8 +151,8 @@ export default function Banner({
                                   description: eventos[0]?.description,
                                   image: eventos[0]?.image,
                                   availableTickets: eventos[0]?.availableTickets,
-                                  etapas: JSON.stringify(eventos[0]?.etapas),
-                                  localidades: JSON.stringify(eventos[0]?.localidades),
+                                  etapas: JSON.stringify(etapas), 
+                                  localidades: JSON.stringify(localizaciones), 
                                   guardarTickets: guardarTickets
                                 },
                               }}
@@ -221,144 +168,14 @@ export default function Banner({
                             </Link>
                           </div>
                         </div>
-
-                      {/* </div> */}
                     </div>
-
                   </>
-
                 )}
-
               </div>
             </SwiperSlide>
-
-            {/* <SwiperSlide className="swiper-slide">
-                <div className="main-slider__img">
-                  <img src="assets/images/resources/main-slider-img-1-2.jpg" alt="" />
-                </div>
-                <div className="main-slider__shpae-1">
-                  <img src="assets/images/shapes/main-slider-shape-1.png" alt="" />
-                </div>
-                <div className="main-slider__shpae-2">
-                  <img src="assets/images/shapes/main-slider-shape-2.png" alt="" />
-                </div>
-                <div className="main-slider__start-1">
-                  <img src="assets/images/shapes/main-slider-star-1.png" alt="" />
-                </div>
-                <div className="main-slider__start-2 zoominout">
-                  <img src="assets/images/shapes/main-slider-star-2.png" alt="" />
-                </div>
-                <div className="main-slider__start-3">
-                  <img src="assets/images/shapes/main-slider-star-3.png" alt="" />
-                </div>
-                <div className="container">
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <div className="main-slider__content">
-                        <p className="main-slider__sub-title">Music Festival</p>
-                        <h2 className="main-slider__title">
-                          Discover a World <br /> <span>of Celebration</span>
-                        </h2>
-                        <p className="main-slider__text">
-                          As an AI language model, I don't have personal opinions or points of view.
-                          However, I <br /> can tell you that design is a multifaceted field that encompasses various elements.
-                        </p>
-                        <ul className="list-unstyled main-slider__address">
-                          <li>
-                            <div className="icon">
-                              <span className="icon-pin"></span>
-                            </div>
-                            <div className="text">
-                              <p>Mirpur 01 Road N 12 Dhaka Bangladesh</p>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="icon">
-                              <span className="icon-clock"></span>
-                            </div>
-                            <div className="text">
-                              <p>10 Am To 10 Pm 20 April 2024</p>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="main-slider__btn-box">
-                          <Link href="/contact" className="main-slider__btn thm-btn">
-                            Purchase Ticket
-                            <span className="icon-arrow-right"></span>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide> */}
-
-            {/* <SwiperSlide className="swiper-slide">
-                <div className="main-slider__img">
-                  <img src="assets/images/resources/main-slider-img-1-3.jpg" alt="" />
-                </div>
-                <div className="main-slider__shpae-1">
-                  <img src="assets/images/shapes/main-slider-shape-1.png" alt="" />
-                </div>
-                <div className="main-slider__shpae-2">
-                  <img src="assets/images/shapes/main-slider-shape-2.png" alt="" />
-                </div>
-                <div className="main-slider__start-1">
-                  <img src="assets/images/shapes/main-slider-star-1.png" alt="" />
-                </div>
-                <div className="main-slider__start-2 zoominout">
-                  <img src="assets/images/shapes/main-slider-star-2.png" alt="" />
-                </div>
-                <div className="main-slider__start-3">
-                  <img src="assets/images/shapes/main-slider-star-3.png" alt="" />
-                </div>
-                <div className="container">
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <div className="main-slider__content">
-                        <p className="main-slider__sub-title">Music Festival</p>
-                        <h2 className="main-slider__title">
-                          Discover a World <br /> <span>of Celebration</span>
-                        </h2>
-                        <p className="main-slider__text">
-                          As an AI language model, I don't have personal opinions or points of view.
-                          However, I <br /> can tell you that design is a multifaceted field that encompasses various elements.
-                        </p>
-                        <ul className="list-unstyled main-slider__address">
-                          <li>
-                            <div className="icon">
-                              <span className="icon-pin" />
-                            </div>
-                            <div className="text">
-                              <p>Mirpur 01 Road N 12 Dhaka Bangladesh</p>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="icon">
-                              <span className="icon-clock" />
-                            </div>
-                            <div className="text">
-                              <p>10 Am To 10 Pm 20 April 2024</p>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="main-slider__btn-box">
-                          <Link href="/contact" className="main-slider__btn thm-btn">
-                            Purchase Ticket <span className="icon-arrow-right" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide> */}
-
           </div>
         </Swiper>
-        {/* <div className="swiper-pagination" id="main-slider-pagination" /> */}
-
       </section>
-      {/* banner-one */}
     </>
   )
 }

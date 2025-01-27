@@ -13,6 +13,12 @@ export default function ProfileSideBar({
     handleSidebarProfile,
 }) {
 
+    const router = useRouter();
+
+    const handleLogOut = () => {
+        router.push('/login');
+    }
+
     return (
         <>
 
@@ -184,10 +190,10 @@ export default function ProfileSideBar({
 
 
                     <div className="menu" style={{ marginTop: 20 }}>
-                        <button className="menu-item" style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.2)', }}>
+                        <Link  href="/tickets" className="menu-item"   style={{ boxShadow: '0px 2px 2px 0px rgba(0, 0, 0, 0.2)', }}>
                             <LocalActivity />
                             <p style={{ fontSize: 14 }}> Mis Tickets </p>
-                        </button>
+                        </Link>
                         {/* <button className="menu-item"> */}
                         <Accordion style={{ borderRadius: 10 }}>
                             <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
@@ -300,7 +306,13 @@ export default function ProfileSideBar({
                         {/* </button> */}
                     </div>
 
-
+                    <button className="btn btn-primary position-absolute bottom-0 end-0 mb-3 me-3"
+                     onClick={() => {
+                        handleLogOut()
+                    }}
+                    >
+                        cerrar seccion
+                    </button>
                 </div>
 
             </div>
