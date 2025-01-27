@@ -41,7 +41,7 @@ function HomePage() {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const storedData = sessionStorage.getItem('userData');
+            const storedData = localStorage.getItem('userData');
             if (storedData) {
                 const parsedData = JSON.parse(storedData);
                 setIdUser(parsedData.id || '');

@@ -3,8 +3,12 @@ import Link from "next/link";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import CheckoutForm from "../default/checkout/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 // import { DoNotDisturbOnTotalSilenceOutlined } from "@mui/icons-material";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function Sidebar({
   id,
@@ -30,6 +34,10 @@ export default function Sidebar({
 }) {
 
   const router = useRouter();
+  const [hasToken, setHasToken] = useState(false);
+
+
+
 
   const [descuento, setDescuento] = useState(0.00)
   const [cargoServicio, setCargoServicio] = useState(1.00)
@@ -40,26 +48,26 @@ export default function Sidebar({
 
   const total = valorTotal + descuento + cargoServicio + impuesto;
 
-  const handleClick = () => {
-    const queryData = {
-      id: id,
-      idUser: idUser,
-      title: title,
-      price: price,
-      date: date,
-      description: description,
-      location: location,
-      image: image,
-      availableTickets: availableTickets,
-      cantidad: cantidad,
-      valorTotal: total,
-      initConfig: initConfig,
-      etapas: JSON.stringify(etapas),
-      localidades: JSON.stringify(localidades),
-    };
-  
-    localStorage.setItem('teamDetailsData', JSON.stringify(queryData));
-  
+  const [showStripe, setShowStripe] = useState(false);
+
+  useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+          setHasToken(true);
+      }
+  }, []);
+
+  const handleButtonClick = () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+          router.push('/login');
+      } else {
+          setShowStripe(true); // Muestra el componente de Stripe
+      }
+  };
+
+  const convertToCents = (amount) => {
+      return amount * 100;
   };
 
   return (
@@ -355,49 +363,47 @@ export default function Sidebar({
 
 
                         <div>
-                          
-                          <Link
-                            href={{
-                              pathname: '/login',
-                              // query: {
-                              //   id: id,
-                              //   idUser: idUser,
-                              //   title: title,
-                              //   price: price,
-                              //   date: date,
-                              //   description: description,
-                              //   location: location,
-                              //   image: image,
-                              //   availableTickets: availableTickets,
-                              //   cantidad: cantidad,
-                              //   valorTotal: valorTotal,
-                              //   initConfig: initConfig,
-                              //   etapas: JSON.stringify(etapas),
-                              //   localidades: JSON.stringify(localidades),
-                              // },
-                            }}
-                            onClick={handleClick}
-                            className="main-slider__btn thm-btn"
-                            style={{
-                              color: 'white',
-                              backgroundColor: '#ef7c25',
-                              borderRadius: 5,
-                              fontSize: 12,
-                              width: 180,
-                              height: 35,
-                              marginTop: 10,
-                              padding: 0,
-                              justifyContent: 'center',
-                              justifyItems: 'center',
-                              alignContent: 'center',
-                              alignItems: 'center',
-                              justifySelf: 'center',
-                              alignSelf: 'center'
-                            }}>
-                            
-                            <LocalMallIcon fontSize="small" />
-                            Comprar Ahora
-                          </Link>
+                        {showStripe ? (
+                <Elements
+                    stripe={stripePromise}
+                    options={{
+                        mode: "payment",
+                        amount: convertToCents(10),
+                        currency: "usd"
+                    }}
+                >
+                    <CheckoutForm
+                        stringValor={valorTotal}
+                        open={open}
+                        onClose={() => setShowStripe(false)}
+                        amount={convertToCents(10)}
+                    />
+                </Elements>
+            ) : (
+                <button
+                    onClick={handleButtonClick}
+                    className="main-slider__btn thm-btn"
+                    style={{
+                        color: 'white',
+                        backgroundColor: '#ef7c25',
+                        borderRadius: 5,
+                        fontSize: 12,
+                        width: 180,
+                        height: 35,
+                        marginTop: 10,
+                        padding: 0,
+                        justifyContent: 'center',
+                        justifyItems: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        justifySelf: 'center',
+                        alignSelf: 'center'
+                    }}
+                >
+                    <LocalMallIcon fontSize="small" />
+                    Comprar Ahora
+                </button>
+            )}
 
                         </div>
 

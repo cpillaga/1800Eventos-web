@@ -11,7 +11,7 @@ function TicketsPage() {
 
     useEffect(() => {
 
-        const storedData = sessionStorage.getItem("userData");
+        const storedData = localStorage.getItem("userData");
         if (storedData) {
             const parsedData = JSON.parse(storedData);
             setIdConsulta(parsedData._id || null);

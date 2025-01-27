@@ -3,7 +3,8 @@ import axios from 'axios';
 
 // const INICIAR_SESION_URL =  "https://certificadocacup.com/api/usuarios/obtenerLoginUsuario";
 const INICIAR_SESION_URL =  "http://localhost:3002/api/auth/login";
-const CREAR_USUARIO_URL =  "https://certificadocacup.com/api/usuarios/crearUsuario";
+const CREAR_USUARIO_URL =  "http://localhost:3002/api/usuarios/crearUsuario";
+const ACTUALIZAR_USUARIO_URL =  "http://localhost:3002/api/usuarios/actualizarUsuario";
 
 // const INICIAR_SESION_URL = initConfig.host + "/api/usuarios/obtenerLoginUsuario";
 // const CREAR_USUARIO_URL = initConfig.host + "/api/usuarios/crearUsuario";
@@ -39,6 +40,21 @@ export function crear_usuario(data) {
     return axios.post(
         
         `${CREAR_USUARIO_URL}`, 
+        data,
+        {       
+            timeout:50000
+        }
+    )
+        .then(r=> r) 
+        .catch(err => err)
+
+}
+
+export function editar_usuario(id,data) {
+    
+    return axios.put(
+        
+        `${ACTUALIZAR_USUARIO_URL}/${id}`, 
         data,
         {       
             timeout:50000

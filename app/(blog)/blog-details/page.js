@@ -9,9 +9,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Sidebar from "@/components/layout/Sidebar";
 import { useEffect, useState } from "react";
 import MapDetails from "@/components/elements/MapDetails";
+import useAuth from "@/app/hooks/useauth";
 
 export default function Home() {
-
+  // useAuth();
   const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig.host + "/api/eventos/consultarImagenEvento";
 
   const id = useSearchParams().get('id');

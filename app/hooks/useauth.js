@@ -1,3 +1,4 @@
+// hooks/useauth.js
 "use client";
 
 import { useRouter } from 'next/navigation';
@@ -7,31 +8,12 @@ const useAuth = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        if (!token) {
+        const token = localStorage.getItem('token');
+        const guest = localStorage.getItem('guest');
+        if (!token && !guest) {
             router.push('/login');
         }
     }, [router]);
 };
 
 export default useAuth;
-
-
-// "use client";
-
-// import { useRouter } from 'next/navigation';
-// import { useEffect } from 'react';
-
-// const useAuth = () => {
-//     const router = useRouter();
-
-//     useEffect(() => {
-//         const token = sessionStorage.getItem('token');
-//         const guest = sessionStorage.getItem('guest');
-//         if (!token && !guest) {
-//             router.push('/login');
-//         }
-//     }, [router]);
-// };
-
-// export default useAuth;

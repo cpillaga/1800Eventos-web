@@ -25,6 +25,14 @@ export default function LoginScreen() {
     // const [estadoSesion, setEstadoSesion] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    // Verificar si ya está autenticado y redirigir si es el caso
+    useEffect(() => {
+        const userData = localStorage.getItem('userData');
+        if (userData ) {
+            router.push('/main');
+        }
+    }, [router]);
+
     const handleOpenModalRegister = () => {
         setOpenRegister(!openRegister)
     }
@@ -36,8 +44,8 @@ export default function LoginScreen() {
             console.log("Data Sesion: ", res.data);
 
             if (res.data) {
-                sessionStorage.setItem('userData', JSON.stringify(res.data.usuario));
-                sessionStorage.setItem('token', res.data.token);
+                localStorage.setItem('userData', JSON.stringify(res.data.usuario));
+                localStorage.setItem('token', res.data.token);
                 // setEstadoSesion(true);
                 router.push('/main');
             }
@@ -48,7 +56,7 @@ export default function LoginScreen() {
     }
 
     const handleGuestLogin = () => {
-        sessionStorage.setItem('guest', 'true');
+        localStorage.setItem('guest', 'true');
         router.push('/main');
     };
 
@@ -147,7 +155,7 @@ export default function LoginScreen() {
                         </button>
                     </div>
 
-                    <div
+                    {/* <div
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -170,7 +178,7 @@ export default function LoginScreen() {
                                 Iniciar Sesion como Invitado
                             </button>
                         </Link>
-                    </div>
+                    </div> */}
 
                     <Grid
                         container
@@ -215,26 +223,6 @@ export default function LoginScreen() {
                         setOpenRegister={setOpenRegister}
                     />
                 )}
-
-                {/* <Elements
-                    stripe={stripePromise}
-                    options={
-                        {
-                            mode: "payment",
-                            amount: convertToCents(amount),
-                            currency: "usd"
-                        }
-                    }
-                >
-
-                    <CheckoutForm
-                        stringValor={stringValor}
-                        open={open}
-                        onClose={() => setOpen(false)}
-                        amount={convertToCents(amount)}
-                    />
-                </Elements> */}
-
             </Box>
         </>
     )

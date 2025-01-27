@@ -13,7 +13,7 @@ import { metadata } from "./metadata";
 
 
 export default function RootLayout({ children }) {
-  useAuth();
+  // useAuth();
   return (
     <html lang="en" className={`${dM_Sans.variable} ${inter.variable}`}>
       <body className="body-bg-color-1">

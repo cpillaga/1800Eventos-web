@@ -173,7 +173,6 @@ function ModalRegister({
                             }
 
                         }}
-
                     >
                         Registrar
                     </button>

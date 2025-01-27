@@ -6,8 +6,8 @@ const ProtectedRoute = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        const guest = sessionStorage.getItem('guest');
+        const token = localStorage.getItem('token');
+        const guest = localStorage.getItem('guest');
         if (!token && !guest) {
             router.push('/login');
         }

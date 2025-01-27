@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation';
 import Menu from "../Menu"
 import MobileMenu from "../MobileMenu"
 import { crear_tickets } from "@/components/api/TicketsApi";
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useEffect, useState } from "react";
 
 export default function Header1({ 
   scroll, isMobileMenu, handleMobileMenu, isSidebar, 
@@ -12,6 +14,17 @@ export default function Header1({
 }) {
 
   const router = useRouter();
+  const [hasToken, setHasToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setHasToken(true);
+    } else {
+      setHasToken(false);
+    }
+  }, []);
+
   const handleSendTickets = () => {
 
     crear_tickets(dataArray)
@@ -28,6 +41,17 @@ export default function Header1({
       })
 
   }
+
+  const handleProtectedClick = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('isToken ?????', token);
+      setHasToken(false);
+    } else {
+      setHasToken(true);
+    }
+  };
+
 
   {/* Header Principal - Bandera */ }
   return (
@@ -58,10 +82,17 @@ export default function Header1({
 
               <Link href="/main"><p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Menu</p></Link>
 
-              <Link href="/tickets"><p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}> Mis Tickets</p></Link>
-                
-              <Link href="#" onClick={handleSidebarProfile}> <p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Perfil</p></Link>
 
+              {hasToken && (
+                  <>
+                    <Link href="/tickets">
+                      <p style={{ color: 'gray', fontSize: 18, fontWeight: 600 }}>Mis Tickets</p>
+                    </Link>
+                    <Link href="#" onClick={handleSidebarProfile}>
+                      <p style={{ color: 'gray', fontSize: 18, fontWeight: 600 }}>Perfil</p>
+                    </Link>
+                  </>
+                )}
              
 
                 {/* <a href="#" className="main-menu__cart icon-cart"></a> */}
@@ -79,46 +110,42 @@ export default function Header1({
               </div>
 
               {
-                estadoCompra ?
-                  <>
-                    <div className="main-menu__btn-box">
-                      <button 
-                        className="main-menu__btn thm-btn"
-                        style={{ border: 'none' }}
-                        onClick={() => {
-                          handleSendTickets()
-                        }}
-                      >
+                // estadoCompra ?
+                //   <>
+                //     <div className="main-menu__btn-box">
+                //       <button 
+                //         className="main-menu__btn thm-btn"
+                //         style={{ border: 'none' }}
+                //         onClick={() => {
+                //           handleSendTickets()
+                //         }}
+                //       >
 
-                        {estadoCompra}
-                        <span className="icon-arrow-right"></span>
+                //         {estadoCompra}
+                //         <span className="icon-arrow-right"></span>
 
-                      </button>
-                      {/* <Link href="/tickets" className="main-menu__btn thm-btn" onClick={() => {
+                //       </button>
+                //       {/* <Link href="/tickets" className="main-menu__btn thm-btn" onClick={() => {
 
-                        console.log("Data Send: ", ticket)
-                        handleCreateTickets(ticket)
+                //         console.log("Data Send: ", ticket)
+                //         handleCreateTickets(ticket)
 
-                      }}>
-                          {estadoCompra}
-                        <span className="icon-arrow-right"></span>
-                      </Link> */}
-                    </div>
-                  </>
-                  :
-                  <>
-                    <div className="main-menu__btn-box">
-                      <Link href="/" className="main-menu__btn thm-btn">
-                        Call Center
-                        <span className="icon-call"></span>
-                      </Link>
-                    </div>
-                  </>
+                //       }}>
+                //           {estadoCompra}
+                //         <span className="icon-arrow-right"></span>
+                //       </Link> */}
+                //     </div>
+                //   </>
+                //   :
+                //   <>
+                //     <div className="main-menu__btn-box">
+                //       <Link href="/" className="main-menu__btn thm-btn">
+                //         Call Center
+                //         <span className="icon-call"></span>
+                //       </Link>
+                //     </div>
+                //   </>
               }
-
-
-
-
             </div>
           </div>
         </div>
