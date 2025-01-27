@@ -15,25 +15,37 @@ export default function ProfileSideBar({
 
     const router = useRouter();
 
+
+    const [userData, setUserData] = useState({
+        name: '',
+        phone: '',
+        email: ''
+    });
+
+    useEffect(() => {
+        const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
+        if (userDataFromSession) {
+            setUserData(userDataFromSession);
+        }
+    }, []);
+
     const handleLogOut = () => {
+        sessionStorage.removeItem('userData');
+        sessionStorage.removeItem('token');
         router.push('/login');
     }
 
     return (
         <>
-
             <div
                 className={`xs-sidebar-group info-group info-sidebar ${isSidebarProfile ? "isActive" : "close-sidebar"
                     }`}
             >
-
                 <div
                     className="xs-sidebar-widget"
                     style={{ backgroundColor: '#E5E7EB', padding: 20 }}
                 >
-
                     <div>
-
                         <Close
                             style={{
                                 width: 19,
@@ -50,16 +62,13 @@ export default function ProfileSideBar({
                         <h3
                             className="menu-profile-title"
                             style={{
-                                // textAlign: 'center',
                                 color: 'black',
                                 fontSize: 16,
                                 paddingLeft: 5
-
                             }}
                         >
                             Mi Cuenta
                         </h3>
-
                     </div>
 
                     <div
@@ -81,12 +90,9 @@ export default function ProfileSideBar({
                             style={{
                                 flexDirection: 'column',
                                 display: 'flex',
-                                // backgroundColor: 'blue',
-                                gap: '30px'
-                                // height: '100%'
+                                gap: '30px'                         
                             }}
                         >
-
                             <div
                                 style={{
                                     width: 100,
@@ -99,11 +105,8 @@ export default function ProfileSideBar({
                                     overflow: 'hidden',
                                     fontSize: 50 * 0.5,
                                     color: '#555',
-
-                                    // margin: 20,
                                 }}
                             >
-
                                 <div className="icon">
                                     <span
                                         className="icon-user"
@@ -115,22 +118,16 @@ export default function ProfileSideBar({
 
                                     </span>
                                 </div>
-
                             </div>
-
                         </div>
 
                         <div
                             style={{
-                                // display: 'flex',
-                                // flexDirection: 'column',
-                                // backgroundColor: 'red',
                                 padding: 10,
                                 width: '60%',
                                 borderRadius: 10
                             }}
                         >
-
                             <div
                                 style={{
                                     color: 'black',
@@ -145,7 +142,7 @@ export default function ProfileSideBar({
                                     fontSize: 13
                                 }}
                             >
-                                <p> User Prueba </p>
+                                <p> {userData.name} </p>
                             </div>
 
                             <div
@@ -163,7 +160,7 @@ export default function ProfileSideBar({
 
                                 }}
                             >
-                                <p> 0983334944</p>
+                                <p> {userData.phone}</p>
                             </div>
 
                             <div
@@ -180,11 +177,9 @@ export default function ProfileSideBar({
                                     fontSize: 13,
                                 }}
                             >
-                                <p> correoprueba@gmail.com </p>
+                                <p>{userData.email}</p>
                             </div>
-
                         </div>
-
                     </div>
 
 

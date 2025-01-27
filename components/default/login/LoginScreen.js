@@ -1,7 +1,7 @@
 "use client";
 // import Layout from "@/components/layout/Layout"
 import { useRouter } from 'next/navigation';
-import { Container, Box, Card, Typography, TextField, Button, Grid, Link } from '@mui/material';
+import { Alert,Container, Box, Card, Typography, TextField, Button, Grid, Link } from '@mui/material';
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import ModalRegister from "@/components/default/registro/ModalRegister";
@@ -13,46 +13,17 @@ import CheckoutForm from '../checkout/CheckoutForm';
 import convertToCents from '../helpers/convertToCents';
 // import handler from '@/app/api/StripeApi';
 // import CheckoutForm from './CheckoutForm';
-import axios from 'axios';
-
 
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function LoginScreen() {
 
     const router = useRouter();
-
-    const [parsedData, setParsedData] = useState({})
-    const [stringValor, setStringValor] = useState('')
-    const [amount, setAmount] = useState(1);
-
-    useEffect(() => {
-        const teamDetailsData = localStorage.getItem('teamDetailsData');
-        const teamDetailsDataParsedData = JSON.parse(teamDetailsData);
-        setParsedData(teamDetailsDataParsedData)
-    }, [])
-
-    useEffect(() => {
-        if (parsedData && parsedData.valorTotal) {
-            setAmount(parsedData.valorTotal);
-            setStringValor(parsedData.valorTotal.toString())
-            console.log("Valor Total: ", parsedData.valorTotal)
-        }
-    }, [parsedData]);
-
     const [openRegister, setOpenRegister] = useState(false);
-
     const [emailLogin, setEmailLogin] = useState('');
     const [passwordLogin, setPasswordLogin] = useState('');
-    const [estadoSesion, setEstadoSesion] = useState(false);
-
-    ///////////////////////////////////////////////////////////////
-    const [queryData, setQueryData] = useState(null);
-    const [loginSuccessful, setLoginSuccessful] = useState(false);
-
-    ///////////////////////////////////////////////////////////////
-    const [open, setOpen] = useState(false);
-    const [clientSecret, setClientSecret] = useState('');
+    // const [estadoSesion, setEstadoSesion] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleOpenModalRegister = () => {
         setOpenRegister(!openRegister)
@@ -67,79 +38,23 @@ export default function LoginScreen() {
             if (res.data) {
                 sessionStorage.setItem('userData', JSON.stringify(res.data.usuario));
                 sessionStorage.setItem('token', res.data.token);
-                // const teamDetailsData = localStorage.getItem('teamDetailsData');
-                // console.log('sasas ',teamDetailsData);
-                // if (teamDetailsData) {
-                    // const teamDetailsDataParsed = JSON.parse(teamDetailsData);
-
-                    // if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
-                    //     const combinedData = {
-                    //         ...teamDetailsDataParsed,
-                    //         idUser: res.data.id
-                    //     };
-
-                        // setQueryData(combinedData);
-                        // localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
-                        setEstadoSesion(true);
-                        router.push('/main');
-                    // } else {
-                    //     console.log('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
-                    // }
-                // } else {
-                //     setQueryData({});
-                // }
+                // setEstadoSesion(true);
+                router.push('/main');
             }
         } catch (err) {
-            console.log("Error Sesion: ", err);
+            console.log('errcvbcvcvb', err.response?.data?.msg );
+            setErrorMessage(err.response?.data?.msg || 'Error al iniciar sesión. Por favor, inténtalo de nuevo.');
         }
     }
 
-    // const handleLogin = async (data) => {
-    //     try {
-    //         const res = await iniciar_sesion(data);
-    //         console.log("Data Sesion: ", res.data);
+    const handleGuestLogin = () => {
+        sessionStorage.setItem('guest', 'true');
+        router.push('/main');
+    };
 
-    //         if (res.data) {
-    //             sessionStorage.setItem('userData', JSON.stringify(res.data));
-    //             const teamDetailsData = localStorage.getItem('teamDetailsData');
-
-    //             if (teamDetailsData) {
-    //                 const teamDetailsDataParsed = JSON.parse(teamDetailsData);
-    //                 if (typeof teamDetailsDataParsed === 'object' && teamDetailsDataParsed !== null) {
-    //                     const combinedData = {
-    //                         ...teamDetailsDataParsed,
-    //                         idUser: res.data.id, // Replace the idUser property
-    //                     };
-    //                     setQueryData(combinedData);
-    //                     localStorage.setItem('teamDetailsData', JSON.stringify(combinedData));
-
-    //                     // Create a payment intent
-    //                     const { client_secret } = await createPaymentIntent(1000); // Example amount in cents
-    //                     setClientSecret(client_secret);
-
-    //                     // Navigate to team-details page with the query parameters
-    //                     router.push({
-    //                         pathname: '/team-details',
-    //                         query: combinedData,
-    //                     });
-    //                     setOpen(true); // Open the modal
-    //                 } else {
-    //                     console.error('Invalid teamDetailsDataParsed:', teamDetailsDataParsed);
-    //                 }
-    //             } else {
-    //                 setQueryData({});
-    //             }
-    //         } else {
-    //             console.error('Login failed: No data returned');
-    //         }
-    //     } catch (err) {
-    //         console.log("Error Sesion: ", err);
-    //     }
-    // };
-
-    useEffect(() => {
-        console.log("Activa?: ", estadoSesion)
-    }, [estadoSesion])
+    // useEffect(() => {
+    //     console.log("Activa?: ", estadoSesion)
+    // }, [estadoSesion]);
 
     return (
         <>
@@ -154,7 +69,6 @@ export default function LoginScreen() {
                         borderRadius: '15px',
                     }}
                 >
-
                     <div
                         style={{
                             justifyContent: 'center',
@@ -196,6 +110,12 @@ export default function LoginScreen() {
 
                     </div>
 
+                    <Grid container display={!!errorMessage ? '':'none'}>
+                        <Grid item xs={ 12 } >
+                        <Alert severity='error'>{errorMessage}</Alert>
+                        </Grid>
+                    </Grid>
+
                     <div
                         style={{
                             justifyContent: 'center',
@@ -205,8 +125,6 @@ export default function LoginScreen() {
                             marginTop: 30
                         }}
                     >
-
-                        {/* <Link href={"/main" }> */}
                         <button
                             className="thm-btn-session"
                             style={{
@@ -227,11 +145,6 @@ export default function LoginScreen() {
                         >
                             Iniciar Sesion
                         </button>
-                        {/* </Link> */}
-
-
-
-
                     </div>
 
                     <div
@@ -252,14 +165,11 @@ export default function LoginScreen() {
                                     border: 'none',
                                     borderRadius: 5,
                                 }}
-                                onClick={() => {
-
-                                }}
+                                onClick={handleGuestLogin}
                             >
                                 Iniciar Sesion como Invitado
                             </button>
                         </Link>
-
                     </div>
 
                     <Grid
@@ -329,3 +239,4 @@ export default function LoginScreen() {
         </>
     )
 }
+

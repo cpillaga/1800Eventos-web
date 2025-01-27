@@ -25,10 +25,11 @@ export async function iniciar_sesion(data) {
     } catch (err) {
         if (err.response) {
             console.log("Error en la solicitud:", err.response.data);
+            throw err; 
         } else {
             console.log("Error desconocido:", err);
+            throw new Error('Error al conectar con el servidor');
         }
-        return err;
     }
 }
 

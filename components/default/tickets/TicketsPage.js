@@ -14,7 +14,7 @@ function TicketsPage() {
         const storedData = sessionStorage.getItem("userData");
         if (storedData) {
             const parsedData = JSON.parse(storedData);
-            setIdConsulta(parsedData.id || null);
+            setIdConsulta(parsedData._id || null);
         }
 
     }, []);
