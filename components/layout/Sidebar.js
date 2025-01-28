@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import CheckoutForm from "../default/checkout/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import LoginScreen from "../default/login/LoginScreen";
 // import { DoNotDisturbOnTotalSilenceOutlined } from "@mui/icons-material";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -35,20 +36,14 @@ export default function Sidebar({
 
   const router = useRouter();
   const [hasToken, setHasToken] = useState(false);
-
-
-
-
   const [descuento, setDescuento] = useState(0.00)
   const [cargoServicio, setCargoServicio] = useState(1.00)
   const [impuesto, setImpuesto] = useState(1.13)
-
   const [path, setPath] = useState('/')
   const [dataSend, setDataSend] = useState({})
-
   const total = valorTotal + descuento + cargoServicio + impuesto;
-
   const [showStripe, setShowStripe] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
       const token = localStorage.getItem('token');
@@ -60,11 +55,16 @@ export default function Sidebar({
   const handleButtonClick = () => {
       const token = localStorage.getItem('token');
       if (!token) {
-          router.push('/login');
+          // router.push('/login');
+          setShowLoginModal(true);
       } else {
-          setShowStripe(true); // Muestra el componente de Stripe
+          setShowStripe(true);
       }
   };
+
+  const handleCloseModalLogin = () => {
+    setShowLoginModal(false);
+};
 
   const convertToCents = (amount) => {
       return amount * 100;
@@ -364,46 +364,46 @@ export default function Sidebar({
 
                         <div>
                         {showStripe ? (
-                <Elements
-                    stripe={stripePromise}
-                    options={{
-                        mode: "payment",
-                        amount: convertToCents(10),
-                        currency: "usd"
-                    }}
-                >
-                    <CheckoutForm
-                        stringValor={valorTotal}
-                        open={open}
-                        onClose={() => setShowStripe(false)}
-                        amount={convertToCents(10)}
-                    />
-                </Elements>
-            ) : (
-                <button
-                    onClick={handleButtonClick}
-                    className="main-slider__btn thm-btn"
-                    style={{
-                        color: 'white',
-                        backgroundColor: '#ef7c25',
-                        borderRadius: 5,
-                        fontSize: 12,
-                        width: 180,
-                        height: 35,
-                        marginTop: 10,
-                        padding: 0,
-                        justifyContent: 'center',
-                        justifyItems: 'center',
-                        alignContent: 'center',
-                        alignItems: 'center',
-                        justifySelf: 'center',
-                        alignSelf: 'center'
-                    }}
-                >
-                    <LocalMallIcon fontSize="small" />
-                    Comprar Ahora
-                </button>
-            )}
+                              <Elements
+                                  stripe={stripePromise}
+                                  options={{
+                                      mode: "payment",
+                                      amount: convertToCents(10),
+                                      currency: "usd"
+                                  }}
+                              >
+                                  <CheckoutForm
+                                      stringValor={valorTotal}
+                                      open={open}
+                                      onClose={() => setShowStripe(false)}
+                                      amount={convertToCents(10)}
+                                  />
+                              </Elements>
+                              ) : (
+                                  <button
+                                      onClick={handleButtonClick}
+                                      className="main-slider__btn thm-btn"
+                                      style={{
+                                          color: 'white',
+                                          backgroundColor: '#ef7c25',
+                                          borderRadius: 5,
+                                          fontSize: 12,
+                                          width: 180,
+                                          height: 35,
+                                          marginTop: 10,
+                                          padding: 0,
+                                          justifyContent: 'center',
+                                          justifyItems: 'center',
+                                          alignContent: 'center',
+                                          alignItems: 'center',
+                                          justifySelf: 'center',
+                                          alignSelf: 'center'
+                                      }}
+                                  >
+                                      <LocalMallIcon fontSize="small" />
+                                      Comprar Ahora
+                                  </button>
+                              )}
 
                         </div>
 
@@ -422,8 +422,7 @@ export default function Sidebar({
         </div>
 
       </div>
-      {/* <span className="icon-arrow-right"></span> */}
-      {/* End sidebar widget content */}
+      <LoginScreen open={showLoginModal} handleClose={handleCloseModalLogin} setToken={setHasToken} />
     </>
   );
 }

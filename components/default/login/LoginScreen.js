@@ -1,7 +1,7 @@
 "use client";
 // import Layout from "@/components/layout/Layout"
 import { useRouter } from 'next/navigation';
-import { Alert,Container, Box, Card, Typography, TextField, Button, Grid, Link } from '@mui/material';
+import { Alert,Container, Box, Card, Typography, TextField, Button, Grid, Link, Modal} from '@mui/material';
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation";
 import ModalRegister from "@/components/default/registro/ModalRegister";
@@ -13,10 +13,9 @@ import CheckoutForm from '../checkout/CheckoutForm';
 import convertToCents from '../helpers/convertToCents';
 // import handler from '@/app/api/StripeApi';
 // import CheckoutForm from './CheckoutForm';
-
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-export default function LoginScreen() {
+const LoginScreen = ({ open, handleClose }) => {
 
     const router = useRouter();
     const [openRegister, setOpenRegister] = useState(false);
@@ -46,8 +45,9 @@ export default function LoginScreen() {
             if (res.data) {
                 localStorage.setItem('userData', JSON.stringify(res.data.usuario));
                 localStorage.setItem('token', res.data.token);
-                // setEstadoSesion(true);
-                router.push('/main');
+                console.log('Redirecting to /blog-details');
+                handleClose();
+                router.push('/blog-details?id=678e7d8fd284c11d4684626a&title=La+Bendita+test&price=50&location=Cuenca+-+Ecuador&date=2024-10-14&description=La+Bendita+tests+ss&image=%2Ffiles%2F1.png&availableTickets=100&etapas=%5B%7B"_id"%3A"678e7fadd284c11d4684626f"%2C"name"%3A"Etapa+VIP"%2C"availableTickets"%3A100%2C"price"%3A150%2C"status"%3A"ACTIVE"%2C"createdAt"%3A"2025-01-20T16%3A54%3A05.510Z"%2C"updatedAt"%3A"2025-01-20T16%3A54%3A05.510Z"%2C"__v"%3A0%2C"event"%3A"678e7d8fd284c11d4684626a"%7D%5D&localidades=%5B%5D');
             }
         } catch (err) {
             console.log('errcvbcvcvb', err.response?.data?.msg );
@@ -65,7 +65,7 @@ export default function LoginScreen() {
     // }, [estadoSesion]);
 
     return (
-        <>
+        <Modal open={open} onClose={handleClose}>
             <Box
                 className="home-container"
             >
@@ -224,7 +224,9 @@ export default function LoginScreen() {
                     />
                 )}
             </Box>
-        </>
+        </Modal>
     )
-}
+};
+
+export default LoginScreen;
 
