@@ -115,6 +115,7 @@ export default function Sidebar({
             <div
               className="sidebar-textwidget"
               style={{
+                height: 215,
                 paddingTop: 12,
                 paddingLeft: 20,
                 paddingRight: 20,
@@ -278,6 +279,7 @@ export default function Sidebar({
                     <div
                       // className="form-inner"
                       style={{
+                        // marginTop:'12%',
                         position: 'absolute',
                         top: '167%',
                         left: '13%',

@@ -5,7 +5,7 @@ import convertToCents from '../helpers/convertToCents';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Modal from '@mui/material/Modal';
-import { Box } from '@mui/material';
+import { Box,IconButton } from '@mui/material';
 import initConfig from '@/components/configs/initConfig';
 import { useRouter } from 'next/navigation';
 import { consultar_stripe } from '@/components/api/StripeApi';
@@ -145,10 +145,39 @@ const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
           backgroundColor: 'white',
           display: 'flex',
           flexDirection: 'column',
-
+          position: 'relative',
 
         }}
       >
+        <IconButton aria-label="delete" size="small"  onClick={onClose}
+          style={{
+            position: 'absolute', 
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'transparent',
+            color: 'black',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+          }}>
+        <DeleteIcon fontSize="inherit" />
+        
+      </IconButton>
+        {/* <button
+          onClick={onClose}
+          style={{
+            position: 'absolute', 
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'transparent',
+            color: 'black',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+          }}
+        >
+          X
+        </button> */}
         <div
           style={{
             justifyContent: 'center',
@@ -185,7 +214,7 @@ const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
             {/* Pay {amount} */}
             {!loading ? 'Pay $ '+stringValor+' USD ': 'Loading...'}
           </button>
-        </form>
+        </form>  
       </Box>
     </Modal>
   )
