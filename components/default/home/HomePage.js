@@ -68,6 +68,7 @@ function HomePage() {
         fetchLocalizacion();
     }, [eventos]);
 
+    
     useEffect(() => {
         const fetchEtapa = async () => {
             if (eventos.length > 0) {

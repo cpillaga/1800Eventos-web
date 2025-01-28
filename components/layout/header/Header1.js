@@ -80,11 +80,13 @@ export default function Header1({
             <div className="main-menu__right">
               <div className="main-menu__cart-search-nav-sidebar-icon-and-btn-box">
 
-              <Link href="/main"><p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Menu</p></Link>
 
 
               {hasToken && (
-                  <>
+                <>
+                    <Link href="/main">
+                      <p style={{ color: 'gray', fontSize: 18, fontWeight: 600}}>Menu</p>
+                    </Link>
                     <Link href="/tickets">
                       <p style={{ color: 'gray', fontSize: 18, fontWeight: 600 }}>Mis Tickets</p>
                     </Link>

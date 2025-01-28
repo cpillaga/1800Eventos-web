@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useMemo  } from "react";
+import { useState, useEffect, useRef  } from "react";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
@@ -14,12 +14,15 @@ export default function Home() {
 
   const [teamDetails, setTeamDetails] = useState(null);
   const [userData, setUserData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const teamDetailsData = localStorage.getItem('teamDetailsData');
     if (teamDetailsData) {
       const parsedData = JSON.parse(teamDetailsData);
       setTeamDetails(parsedData);
+    }else {
+      router.push('/main');
     }
 
     const user = localStorage.getItem('userData');
@@ -27,7 +30,6 @@ export default function Home() {
       const parsedData = JSON.parse(user);
       setUserData(parsedData);
     }
-
   }, []);
 
 
@@ -44,24 +46,18 @@ export default function Home() {
   const cantidad = teamDetails?.cantidad;
   const valorTotal = teamDetails?.valorTotal;
   const initConfig = teamDetails?.initConfig;
-
   const etapasString = teamDetails?.etapas;
   const localidadesString = teamDetails?.localidades;
   const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
-
   const CONSULTAR_IMAGEN_EVENTOS_URL = initConfig + "/api/eventos/consultarImagenEvento";
-
-  const [text, setText] = useState("https://example.com");
   const [dataArray, setDataArray] = useState([])
 
   const isCalledRef = useRef(false); 
 
   useEffect(() => {
-
     const cant = cantidad;
     const newDataArray = [];
-
     for (let i = 0; i < cant; i++) {
       newDataArray.push({
         // event: id,
@@ -122,13 +118,6 @@ export default function Home() {
         console.log(err)
       })
   }
-    const memoizedData = useMemo(() => ({
-      dataArray,
-      title,
-      date,
-      cantidad
-    }), [dataArray, title, date, cantidad]);
-
   return (
     <>
       <Layout
@@ -138,7 +127,7 @@ export default function Home() {
         estadoCompra={estadoCompra}
         ticket={ticket || {}}
         // handleCreateTickets={handleCreateTickets}
-        dataArray={memoizedData}
+        dataArray={dataArray}
       >
         <div>
           {/*Team Details Info Start*/}
@@ -205,11 +194,11 @@ export default function Home() {
 
                   <div style={{ marginTop: 10, marginLeft: 15 }} >
                     <p style={{ color: 'black', fontWeight: 800 }}> EVENTO </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.title}</p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {title}</p>
                   </div>
                   <div style={{ marginTop: 10 }} >
                     <p style={{ color: 'black', fontWeight: 800 }}> FECHA </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.date}</p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {date}</p>
                   </div>
 
                 </div>
@@ -221,7 +210,7 @@ export default function Home() {
 
                   <div style={{ marginTop: 10, marginLeft: 15 }}>
                     <p style={{ color: 'black', fontWeight: 800 }}> CANTIDAD </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.cantidad} </p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {cantidad} </p>
                   </div>
                   {/* <div style={{ marginTop: 10 }}>
                     <p style={{ color: 'black', fontWeight: 800 }}> HORA </p>
@@ -332,7 +321,7 @@ export default function Home() {
                 // )}
                 >
 
-                  {memoizedData.dataArray.length > 0 && memoizedData.dataArray.map((qr) => ( 
+                  {dataArray.length > 0 && dataArray.map((qr) => ( 
                     <div key={qr.qrId}>
                       <QRCodeSVG value={qr.qrCode} size={340} />
                     </div>

@@ -10,6 +10,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { useEffect, useState } from "react";
 import MapDetails from "@/components/elements/MapDetails";
 import useAuth from "@/app/hooks/useauth";
+import { consultar_etapa } from "@/components/api/EtapaApi";
 
 export default function Home() {
   // useAuth();
@@ -25,24 +26,51 @@ export default function Home() {
   const image = useSearchParams().get('image');
   const availableTickets = useSearchParams().get('availableTickets');
 
-  const etapasString = useSearchParams().get('etapas');
+  // const etapasString = useSearchParams().get('etapas');
   const localidadesString = useSearchParams().get('localidades');
   
-    console.log("localidadesString:", localidadesString);
-    console.log("etapasString:",  etapasString);
-  const etapas = etapasString ? JSON.parse(etapasString) : [];
+  console.log("localidadesString:", localidadesString);
+    // console.log("etapasString:",  etapasString);
+  // const etapas = etapasString ? JSON.parse(etapasString) : [];
   const localidades = localidadesString ? JSON.parse(localidadesString) : [];
 
   const [isSidebar, setSidebar] = useState(false)
   const [enSesion, setEnSesion] = useState(false)
+  const [counts, setCounts] = useState([]);
+  const [cantidad, setCantidad] = useState(0);
 
   const handleSidebar = () => {
     setSidebar(!isSidebar)
   }
 
-  const [counts, setCounts] = useState(new Array(etapas.length).fill(0));
+  const [etapas, setEtapas] = useState([])
+  
+    useEffect(() => {
+      const fetchEtapa = async () => {
+          if (id) {
+              
+              try {
+                  const res = await consultar_etapa(id);
+                  setEtapas(res);
+                  console.log(res);
+              } catch (err) {
+                  console.error("Error al consultar la etapa:", err);
+              }
+          }
+      };
+
+      fetchEtapa();
+    }, [id]);
+
+
+    useEffect(() => {
+      if (etapas.length > 0) {
+        setCounts(new Array(etapas.length).fill(0));
+      }
+    }, [etapas]);
+
+
   const [valorTotal, setValorTotal] = useState(0);
-  const [cantidad, setCantidad] = useState(0);
 
   const cantidadTotal = (newCounts) => {
 
@@ -93,9 +121,7 @@ export default function Home() {
 
 
   return (
-
     <>
-
       <Layout headerStyle={4} footerStyle={1} breadcrumbTitle="Blog_Details">
 
         <section>
@@ -344,7 +370,7 @@ export default function Home() {
                         </div>
                       </div>
 
-
+                        {/* btn incrementop y decremento */}
 
                       <div
                         style={{
