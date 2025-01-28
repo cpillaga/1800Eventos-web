@@ -57,6 +57,7 @@ function HomePage() {
                 const idEvento = eventos[0]._id;
                 try {
                     const res = await consultar_localidad(idEvento);
+                    console.log(res);
                     setLocalizaciones(res);
                 } catch (err) {
                     console.error("Error al consultar la localización:", err);

@@ -16,7 +16,6 @@ export function crear_tickets(data) {
     )
         .then(r=> r) 
         .catch(err => err)
-
 }
 
 export function obtener_tickets(data) {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo  } from "react";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
@@ -12,13 +12,10 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
 
-  
-
   const [teamDetails, setTeamDetails] = useState(null);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-   
     const teamDetailsData = localStorage.getItem('teamDetailsData');
     if (teamDetailsData) {
       const parsedData = JSON.parse(teamDetailsData);
@@ -34,7 +31,7 @@ export default function Home() {
   }, []);
 
 
-  const test = userData?.id;
+  const test = userData?._id;
   const id = teamDetails?.id;
   const idUser = teamDetails?.idUser;
   const title = teamDetails?.title;
@@ -58,6 +55,8 @@ export default function Home() {
   const [text, setText] = useState("https://example.com");
   const [dataArray, setDataArray] = useState([])
 
+  const isCalledRef = useRef(false); 
+
   useEffect(() => {
 
     const cant = cantidad;
@@ -65,22 +64,25 @@ export default function Home() {
 
     for (let i = 0; i < cant; i++) {
       newDataArray.push({
-        event: id,
-        user: idUser,
+        // event: id,
+        user: test,
         isValid: true,
         purchaseDate: date,
-        paymentStatus: "PENDING",
+        // paymentStatus: "PENDING",
+        paymentStatus: "COMPLETED",
         stageId: etapas[0]._id,
         // localidad: localidades[0].id,
         isTransferred: false,
         qrId: `${id}-${i + 1}`,
-        qrCode: `https://example.com/ticket/${id}-${i + 1}`,
-        label: `Ticket ${i + 1}`
+        qrCode: `https://example.com/ticket/${id}-${i + 1}`, 
+        label: `Ticket ${i + 1}`,
+        localidad: localidades[0]._id,
+        etapa: etapas[0]._id,
+
       });
     }
-
     setDataArray(newDataArray)
- 
+  // }, [id])
   }, [id])
 
   const [estadoCompra, setEstadoCompra] = useState('Descargar Ticket')
@@ -99,21 +101,33 @@ export default function Home() {
     initConfig: initConfig,
     etapas: etapas,
     localidades: localidades
-  })
+  });
+
+  useEffect(() => {
+    if (dataArray.length > 0 && !isCalledRef.current) {
+      handleCreateTickets(dataArray);
+      isCalledRef.current = true; // Set ref to true after calling the function
+    }
+  }, [dataArray]);
 
   const handleCreateTickets = (data) => {
-
+    console.log(data);
     crear_tickets(data)
       .then((res) => {
        
-        console.log(res)
+        // console.log(res)
+        localStorage.removeItem('teamDetailsData');
       })
       .catch((err) => {
         console.log(err)
       })
-
   }
-
+    const memoizedData = useMemo(() => ({
+      dataArray,
+      title,
+      date,
+      cantidad
+    }), [dataArray, title, date, cantidad]);
 
   return (
     <>
@@ -123,8 +137,8 @@ export default function Home() {
         breadcrumbTitle="Team Details"
         estadoCompra={estadoCompra}
         ticket={ticket || {}}
-        handleCreateTickets={handleCreateTickets}
-        dataArray={dataArray}
+        // handleCreateTickets={handleCreateTickets}
+        dataArray={memoizedData}
       >
         <div>
           {/*Team Details Info Start*/}
@@ -191,11 +205,11 @@ export default function Home() {
 
                   <div style={{ marginTop: 10, marginLeft: 15 }} >
                     <p style={{ color: 'black', fontWeight: 800 }}> EVENTO </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {title}</p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.title}</p>
                   </div>
                   <div style={{ marginTop: 10 }} >
                     <p style={{ color: 'black', fontWeight: 800 }}> FECHA </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {date}</p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.date}</p>
                   </div>
 
                 </div>
@@ -207,7 +221,7 @@ export default function Home() {
 
                   <div style={{ marginTop: 10, marginLeft: 15 }}>
                     <p style={{ color: 'black', fontWeight: 800 }}> CANTIDAD </p>
-                    <p style={{ color: '#838383', fontWeight: 400 }}> {cantidad} </p>
+                    <p style={{ color: '#838383', fontWeight: 400 }}> {memoizedData.cantidad} </p>
                   </div>
                   {/* <div style={{ marginTop: 10 }}>
                     <p style={{ color: 'black', fontWeight: 800 }}> HORA </p>
@@ -318,7 +332,7 @@ export default function Home() {
                 // )}
                 >
 
-                  {dataArray.map((qr) => ( 
+                  {memoizedData.dataArray.length > 0 && memoizedData.dataArray.map((qr) => ( 
                     <div key={qr.qrId}>
                       <QRCodeSVG value={qr.qrCode} size={340} />
                     </div>

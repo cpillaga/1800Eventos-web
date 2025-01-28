@@ -58,13 +58,32 @@ export default function Sidebar({
           // router.push('/login');
           setShowLoginModal(true);
       } else {
-          setShowStripe(true);
+        const queryData = {
+          id: id,
+          idUser: idUser,
+          title: title,
+          price: price,
+          date: date,
+          description: description,
+          location: location,
+          image: image,
+          availableTickets: availableTickets,
+          cantidad: cantidad,
+          valorTotal: total,
+          initConfig: initConfig,
+          etapas: JSON.stringify(etapas),
+          localidades: JSON.stringify(localidades),
+        };
+      
+        localStorage.setItem('teamDetailsData', JSON.stringify(queryData));
+        //mostrar Stripe
+        setShowStripe(true);
       }
   };
 
   const handleCloseModalLogin = () => {
     setShowLoginModal(false);
-};
+  };
 
   const convertToCents = (amount) => {
       return amount * 100;
@@ -373,7 +392,7 @@ export default function Sidebar({
                                   }}
                               >
                                   <CheckoutForm
-                                      stringValor={valorTotal}
+                                      stringValor={total}
                                       open={open}
                                       onClose={() => setShowStripe(false)}
                                       amount={convertToCents(10)}
@@ -422,7 +441,14 @@ export default function Sidebar({
         </div>
 
       </div>
-      <LoginScreen open={showLoginModal} handleClose={handleCloseModalLogin} setToken={setHasToken} />
+      
+      <LoginScreen open={showLoginModal} handleClose={handleCloseModalLogin} 
+        setToken={setHasToken} 
+        id={id} idUser={idUser} title={title} price={price} date={date} 
+        description={description} location={location} image={image} 
+        availableTickets={availableTickets} etapas={etapas} 
+        localidades={localidades}              
+      />
     </>
   );
 }

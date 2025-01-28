@@ -9,6 +9,7 @@ import { Box } from '@mui/material';
 import initConfig from '@/components/configs/initConfig';
 import { useRouter } from 'next/navigation';
 import { consultar_stripe } from '@/components/api/StripeApi';
+import { crear_tickets } from '@/components/api/TicketsApi';
 
 // import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 // import { useState } from 'react';
@@ -52,6 +53,7 @@ const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
     //   .then((data) => setClientSecret(data.clientSecret));
 
   }, [amount]);
+
 
   const handleSubmit = async (event) => {
 
@@ -118,6 +120,7 @@ const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
     )
 
   }
+
 
   return (
     <Modal
