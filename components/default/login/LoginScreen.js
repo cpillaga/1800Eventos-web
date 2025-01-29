@@ -38,6 +38,8 @@ const LoginScreen = ({ open, handleClose, id, idUser, title, price, date, descri
 
     const handleLogin = async (data) => {
         try {
+
+
             console.log(data);
             const res = await iniciar_sesion(data);
             console.log("Data Sesion: ", res.data);
@@ -47,7 +49,10 @@ const LoginScreen = ({ open, handleClose, id, idUser, title, price, date, descri
                 localStorage.setItem('token', res.data.token);
                 console.log('Redirecting to /blog-details');
                 handleClose();
-            
+                if (!id) {
+                    router.push('/main');
+                    return;
+                }
                 const redirectUrl = `/blog-details?id=${id}&idUser=${idUser}&title=${encodeURIComponent(title)}&price=${price}&location=${encodeURIComponent(location)}&date=${date}&description=${encodeURIComponent(description)}&image=${encodeURIComponent(image)}&availableTickets=${availableTickets}&etapas=${encodeURIComponent(JSON.stringify(etapas))}&localidades=${encodeURIComponent(JSON.stringify(localidades))}`;
                 console.log('Redirecting to:', redirectUrl);
                 router.push(redirectUrl);

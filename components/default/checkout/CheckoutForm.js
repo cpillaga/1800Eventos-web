@@ -77,13 +77,18 @@ const CheckoutForm = ({ stringValor, onClose, amount, open }) => {
       return;
     }
 
-    const { error } = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment(
+      {
       elements,
       clientSecret: clientSecret,
       confirmParams: {
-        return_url: window.location.href, // Set current URL to prevent automatic redirection
+        // return_url: window.location.href, 
+         return_url: 'http://localhost:3000'+'/team-details',
       },
-    });
+    }
+  );
+
+  console.log('Error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',error);
 
     if (error) {
       setErrorMessage(error.message);

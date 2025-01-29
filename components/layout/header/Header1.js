@@ -42,13 +42,15 @@ export default function Header1({
 
   }
 
-  const handleProtectedClick = () => {
+  const handleProtectedClick = (e) => {
+    e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) {
       console.log('isToken ?????', token);
-      setHasToken(false);
+      router.push('/login'); 
+      // setHasToken(false);
     } else {
-      setHasToken(true);
+      handleSidebarProfile();
     }
   };
 
@@ -93,7 +95,7 @@ export default function Header1({
                   </>
               )}
               
-              <Link href="#" onClick={handleSidebarProfile}>
+              <Link href="#" onClick={handleProtectedClick}>
                 <p style={{ color: 'gray', fontSize: 18, fontWeight: 600 }}>Perfil</p>
               </Link>
 

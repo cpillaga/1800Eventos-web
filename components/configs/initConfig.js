@@ -7,7 +7,9 @@ const urlAmbiente = {
     },
     produccion:
     {
-        host: 'http://localhost:3002'
+        host: 'http://localhost:3002',
+      
+
         // host: 'https://certificadocacup.com'
     }
 };
