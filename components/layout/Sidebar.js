@@ -37,13 +37,14 @@ export default function Sidebar({
   const router = useRouter();
   const [hasToken, setHasToken] = useState(false);
   const [descuento, setDescuento] = useState(0.00)
-  const [cargoServicio, setCargoServicio] = useState(1.00)
-  const [impuesto, setImpuesto] = useState(1.13)
+  const [cargoServicio, setCargoServicio] = useState(0.50)
+  const [impuesto, setImpuesto] = useState(valorTotal * 0.15)
   const [path, setPath] = useState('/')
   const [dataSend, setDataSend] = useState({})
   const total = valorTotal + descuento + cargoServicio + impuesto;
   const [showStripe, setShowStripe] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [open, setOpen] = useState(false); 
 
   useEffect(() => {
       const token = localStorage.getItem('token');
@@ -51,6 +52,11 @@ export default function Sidebar({
           setHasToken(true);
       }
   }, []);
+
+  useEffect(() => {
+    // Calculate the 15% tax whenever valorTotal changes
+    setImpuesto(valorTotal * 0.15);
+  }, [valorTotal]);
 
   const handleButtonClick = () => {
       const token = localStorage.getItem('token');
@@ -78,12 +84,21 @@ export default function Sidebar({
         localStorage.setItem('teamDetailsData', JSON.stringify(queryData));
         //mostrar Stripe
         setShowStripe(true);
+        setOpen(true);
       }
   };
 
   const handleCloseModalLogin = () => {
     setShowLoginModal(false);
+    setOpen(false);
   };
+
+  
+  const handleClose = () => {
+    setShowStripe(false);
+    setOpen(false); // Close the modal
+  };
+
 
   const convertToCents = (amount) => {
       return amount * 100;
@@ -93,8 +108,12 @@ export default function Sidebar({
     <>
       {/* Start sidebar widget content */}
       <div
-        className={`xs-sidebar-group info-group info-sidebar ${isSidebar ? "isActive" : "close-sidebar"
-          }`}
+        style={{
+          padding: '0!important',
+          // width: '100%'
+        }}
+        // className={`xs-sidebar-group info-group info-sidebar ${isSidebar ? "isActive" : "close-sidebar"
+        //   }`}
       >
         <div
           // className="xs-overlay xs-bg-black" 
@@ -103,8 +122,10 @@ export default function Sidebar({
 
         </div>
 
-        <div className="xs-sidebar-widget" style={{ backgroundColor: '#E5E7EB' }}>
-          <div className="sidebar-widget-container">
+        {/* <div className="" style={{ backgroundColor: '#E5E7EB' , padding: 0}}>
+          <div className=""> */}
+        <div className="" style={{ backgroundColor: '#E5E7EB' }}>
+          <div className="">
 
             {/* <div className="widget-heading">
               <span className="close-side-widget" onClick={handleSidebar}>
@@ -113,17 +134,16 @@ export default function Sidebar({
             </div> */}
 
             <div
-              className="sidebar-textwidget"
+              className=""
               style={{
-                height: 215,
+                height: 200,
                 paddingTop: 12,
                 paddingLeft: 20,
                 paddingRight: 20,
                 paddingBottom: 15
               }}
             >
-              <div // className="sidebar-info-contents"
-              >
+         
                 <div
                 // className="content-inner"
                 >
@@ -155,23 +175,27 @@ export default function Sidebar({
 
                   <div
                     style={{
-                      position: 'absolute',
-                      top: '106%',
-                      left: '5.5%',
+                      // position: 'absolute',
+                      // top: '106%',
+                      // left: '5.5%',
                       backgroundColor: 'white',
                       borderRadius: 10,
                       justifySelf: 'center',
                       alignSelf: 'center',
-                      paddingTop: 5,
-                      paddingLeft: 15,
-                      paddingBottom: 7,
+                      // paddingTop: 5,
+                      // paddingLeft: 15,
+                      // paddingBottom: 7,
                       boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.2)',
+                      marginBottom: '4%'
                     }}
                   >
 
                     <div
                       style={{
-                        width: '305px',
+                        padding: '2%',
+                        marginTop: "5%",
+                        width:'250px',
+                        maxWidth: '305px',
                         color: '#838383',
                         textAlign: 'left'
                       }}
@@ -280,9 +304,9 @@ export default function Sidebar({
                       // className="form-inner"
                       style={{
                         // marginTop:'12%',
-                        position: 'absolute',
-                        top: '167%',
-                        left: '13%',
+                        // position: 'absolute',
+                        // top: '167%',
+                        // left: '13%',
                         width: '272px',
                         backgroundColor: 'white',
                         borderRadius: 10,
@@ -396,7 +420,7 @@ export default function Sidebar({
                                   <CheckoutForm
                                       stringValor={total}
                                       open={open}
-                                      onClose={() => setShowStripe(false)}
+                                      onClose={handleClose}
                                       amount={convertToCents(10)}
                                   />
                               </Elements>
@@ -436,7 +460,7 @@ export default function Sidebar({
 
 
                 </div>
-              </div>
+              
             </div>
 
           </div>

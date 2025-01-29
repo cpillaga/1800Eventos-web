@@ -99,7 +99,7 @@ export default function Layout({
                 {headerStyle == 7 ? <Header7 scroll={scroll} isMobileMenu={isMobileMenu} handleMobileMenu={handleMobileMenu} handlePopup={handlePopup} isSidebar={isSidebar} handleSidebar={handleSidebar} /> : null}
                  */}
 
-                <Sidebar isSidebar={isSidebar} handleSidebar={handleSidebar} />
+                {/* <Sidebar isSidebar={isSidebar} handleSidebar={handleSidebar} /> */}
                 <ProfileSideBar isSidebarProfile={isSidebarProfile} handleSidebarProfile={handleSidebarProfile} />
                 {/* <SearchPopup isPopup={isPopup} handlePopup={handlePopup} /> */}
 {/* 
